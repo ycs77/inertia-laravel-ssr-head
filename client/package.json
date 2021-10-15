@@ -1,0 +1,25 @@
+{
+    "name": "inertia-title",
+    "version": "0.1.0",
+    "description": "Simple auto update title plugin for Inertia.js client adapters",
+    "main": "index.js",
+    "module": "index.js",
+    "scripts": {
+        "test": "echo \"test...\""
+    },
+    "author": "Lucas Yang",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ycs77/inertia-laravel-ssr-head.git",
+        "directory": "client"
+    },
+    "homepage": "https://github.com/ycs77/inertia-laravel-ssr-head",
+    "bugs": {
+        "url": "https://github.com/ycs77/inertia-laravel-ssr-head/issues"
+    },
+    "keywords": ["inertia", "inertiajs", "head", "seo"],
+    "peerDependencies": {
+        "@inertiajs/inertia": ">=0.3.0"
+    }
+}
