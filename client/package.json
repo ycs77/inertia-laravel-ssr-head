@@ -4,6 +4,7 @@
     "description": "Simple auto update title plugin for Inertia.js client adapters",
     "main": "index.js",
     "module": "index.js",
+    "types": "index.d.ts",
     "scripts": {
         "test": "echo \"test...\""
     },
