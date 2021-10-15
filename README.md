@@ -16,16 +16,30 @@ Install the package via composer:
 composer require ycs77/inertia-laravel-ssr-head
 ```
 
+Install the client npm package:
+
+```bash
+npm install inertia-title
+// or
+yarn add inertia-title
+```
+
 Publish the config file with:
 ```bash
 php artisan vendor:publish --provider="Ycs77\InertiaSSRHead\InertiaSSRHeadServiceProvider" --tag="inertia-laravel-ssr-head-config"
 ```
 
-## Usage
+## Usage in Laravel
 
-```php
-// ...
-```
+...
+
+## Usage in Vue 2
+
+...
+
+## Usage in Vue 3
+
+...
 
 ## Testing
 
