@@ -12,9 +12,8 @@
     ],
     "require": {
         "php": "^7.2|^8.0",
-        "spatie/laravel-package-tools": "^1.4.3",
         "illuminate/contracts": ">=5.4",
-        "inertiajs/inertia-laravel": ">=0.1"
+        "inertiajs/inertia-laravel": "^0.3.6"
     },
     "require-dev": {
         "nunomaduro/collision": "^5.3",
@@ -43,10 +42,7 @@
         "laravel": {
             "providers": [
                 "Ycs77\\InertiaSSRHead\\InertiaSSRHeadServiceProvider"
-            ],
-            "aliases": {
-                "InertiaSSRHead": "Ycs77\\InertiaSSRHead\\Facades\\InertiaSSRHead"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",

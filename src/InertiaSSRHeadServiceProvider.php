@@ -2,21 +2,36 @@
 
 namespace Ycs77\InertiaSSRHead;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
+use Inertia\Response;
 
-class InertiaSSRHeadServiceProvider extends PackageServiceProvider
+class InertiaSSRHeadServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    public function register()
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
-        $package
-            ->name('inertia-laravel-ssr-head')
-            ->hasConfigFile('inertia-ssr-head')
-            ->hasViews();
+        $this->mergeConfigFrom(__DIR__.'/../config/inertia-ssr-head.php', 'inertia-ssr-head');
+    }
+
+    public function boot()
+    {
+        $this->registerInertiaResponseMixin();
+        $this->registerTitleDirective();
+    }
+
+    protected function registerInertiaResponseMixin()
+    {
+        Response::mixin(new InertiaResponseMixin);
+    }
+
+    protected function registerTitleDirective()
+    {
+        Blade::directive('inertiaTitle', function () {
+            return '<?php echo $page[\'props\'][\'title\'] ?? $title ?? config(\'app.name\'); ?>';
+        });
+
+        Blade::directive('inertiaOpenGraph', function () {
+            return '<?php echo (new \Ycs77\InertiaSSRHead\InertiaOpenGraphTags($openGraph))->render(); ?>';
+        });
     }
 }
