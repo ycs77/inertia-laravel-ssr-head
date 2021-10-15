@@ -1,9 +1,10 @@
 # Inertia.js Laravel SSR Head
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/ycs77/inertia-laravel-ssr-head.svg?style=flat-square)](https://packagist.org/packages/ycs77/inertia-laravel-ssr-head)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/ycs77/inertia-laravel-ssr-head/run-tests?label=tests)](https://github.com/ycs77/inertia-laravel-ssr-head/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/ycs77/inertia-laravel-ssr-head/Check%20&%20fix%20styling?label=code%20style)](https://github.com/ycs77/inertia-laravel-ssr-head/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/ycs77/inertia-laravel-ssr-head.svg?style=flat-square)](https://packagist.org/packages/ycs77/inertia-laravel-ssr-head)
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![GitHub Tests Action Status][ico-github-action]][link-github-action]
+[![Style CI Build Status][ico-style-ci]][link-style-ci]
+[![Total Downloads][ico-downloads]][link-downloads]
 
 Simple SSR Head for Inertia Laravel.
 
@@ -48,3 +49,14 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+[ico-version]: https://img.shields.io/packagist/v/ycs77/inertia-laravel-ssr-head?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square
+[ico-github-action]: https://img.shields.io/github/workflow/status/ycs77/inertia-laravel-ssr-head/run-tests?label=tests&style=flat-square
+[ico-style-ci]: https://github.styleci.io/repos/417571519/shield?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/ycs77/inertia-laravel-ssr-head?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/ycs77/inertia-laravel-ssr-head
+[link-github-action]: https://github.com/ycs77/inertia-laravel-ssr-head/actions?query=workflow%3Arun-tests+branch%3Amain
+[link-style-ci]: https://github.styleci.io/repos/417571519
+[link-downloads]: https://packagist.org/packages/ycs77/inertia-laravel-ssr-head
