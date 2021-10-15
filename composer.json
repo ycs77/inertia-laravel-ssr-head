@@ -1,0 +1,54 @@
+{
+    "name": "ycs77/inertia-laravel-ssr-head",
+    "description": "Simple SSR Head for Inertia Laravel",
+    "keywords": ["laravel", "inertia", "ssr", "seo", "head"],
+    "homepage": "https://github.com/ycs77/inertia-laravel-ssr-head",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lucas Yang",
+            "email": "yangchenshin77@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2|^8.0",
+        "spatie/laravel-package-tools": "^1.4.3",
+        "illuminate/contracts": ">=5.4",
+        "inertiajs/inertia-laravel": ">=0.1"
+    },
+    "require-dev": {
+        "nunomaduro/collision": "^5.3",
+        "orchestra/testbench": ">=4.0",
+        "pestphp/pest": "^1.18",
+        "pestphp/pest-plugin-laravel": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ycs77\\InertiaSSRHead\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ycs77\\InertiaSSRHead\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/pest --no-coverage",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ycs77\\InertiaSSRHead\\InertiaSSRHeadServiceProvider"
+            ],
+            "aliases": {
+                "InertiaSSRHead": "Ycs77\\InertiaSSRHead\\Facades\\InertiaSSRHead"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
