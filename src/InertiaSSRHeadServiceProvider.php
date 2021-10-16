@@ -27,10 +27,10 @@ class InertiaSSRHeadServiceProvider extends ServiceProvider
     protected function registerTitleDirective()
     {
         Blade::directive('inertiaTitle', function () {
-            return '<?php echo $page[\'props\'][\'title\'] ?? $title ?? config(\'app.name\'); ?>';
+            return '<?php echo \'<title inertia>\'.e($page[\'props\'][\'title\'] ?? $title ?? config(\'app.name\')).\'</title>\'; ?>';
         });
 
-        Blade::directive('inertiaOpenGraph', function () {
+        Blade::directive('inertiaHead', function () {
             return '<?php echo (new \Inertia\SSRHead\InertiaOpenGraphTags($openGraph))->render(); ?>';
         });
     }
