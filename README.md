@@ -47,6 +47,11 @@ php artisan vendor:publish --provider="Inertia\SSRHead\InertiaSSRHeadServiceProv
 composer test
 ```
 
+## Reference
+
+* Facebool for Developers: [Webmasters - Sharing](https://developers.facebook.com/docs/sharing/webmasters)
+* Twitter Developer Platform: [About Twitter Cards | Docs](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards)
+
 ## Contributing
 
 Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
@@ -56,6 +61,8 @@ Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
+
+The HeadManager is take from [Inertia.js](https://inertiajs.com/), thanks the awesome package for [Jonathan Reinink](https://github.com/reinink).
 
 - [Lucas Yang](https://github.com/ycs77)
 - [All Contributors](https://github.com/ycs77/graphs/contributors)

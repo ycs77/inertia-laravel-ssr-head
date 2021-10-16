@@ -21,7 +21,7 @@ class InertiaSSRHeadServiceProvider extends ServiceProvider
 
     protected function registerInertiaResponseMixin()
     {
-        Response::mixin(new InertiaResponseMixin);
+        Response::mixin(new ResponseMixin);
     }
 
     protected function registerTitleDirective()
