@@ -1,6 +1,6 @@
 <?php
 
-namespace Ycs77\InertiaSSRHead;
+namespace Inertia\SSRHead;
 
 use Illuminate\Contracts\Support\Renderable;
 use Stringable;

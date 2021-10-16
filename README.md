@@ -26,7 +26,7 @@ yarn add inertia-title
 
 Publish the config file with:
 ```bash
-php artisan vendor:publish --provider="Ycs77\InertiaSSRHead\InertiaSSRHeadServiceProvider" --tag="inertia-laravel-ssr-head-config"
+php artisan vendor:publish --provider="Inertia\SSRHead\InertiaSSRHeadServiceProvider" --tag="inertia-laravel-ssr-head-config"
 ```
 
 ## Usage in Laravel

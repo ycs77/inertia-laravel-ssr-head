@@ -1,6 +1,6 @@
 <?php
 
-namespace Ycs77\InertiaSSRHead;
+namespace Inertia\SSRHead;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -31,7 +31,7 @@ class InertiaSSRHeadServiceProvider extends ServiceProvider
         });
 
         Blade::directive('inertiaOpenGraph', function () {
-            return '<?php echo (new \Ycs77\InertiaSSRHead\InertiaOpenGraphTags($openGraph))->render(); ?>';
+            return '<?php echo (new \Inertia\SSRHead\InertiaOpenGraphTags($openGraph))->render(); ?>';
         });
     }
 }

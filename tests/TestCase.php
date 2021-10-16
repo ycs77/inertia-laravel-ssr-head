@@ -1,9 +1,9 @@
 <?php
 
-namespace Ycs77\InertiaSSRHead\Tests;
+namespace Inertia\SSRHead\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Ycs77\InertiaSSRHead\InertiaSSRHeadServiceProvider;
+use Inertia\SSRHead\InertiaSSRHeadServiceProvider;
 
 class TestCase extends Orchestra
 {

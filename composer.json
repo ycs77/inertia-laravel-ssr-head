@@ -13,7 +13,7 @@
     "require": {
         "php": "^7.2|^8.0",
         "illuminate/contracts": ">=5.4",
-        "inertiajs/inertia-laravel": "^0.3.6"
+        "inertiajs/inertia-laravel": ">=0.3.6"
     },
     "require-dev": {
         "nunomaduro/collision": "^5.3",
@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Ycs77\\InertiaSSRHead\\": "src"
+            "Inertia\\SSRHead\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Ycs77\\InertiaSSRHead\\Tests\\": "tests"
+            "Inertia\\SSRHead\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -41,7 +41,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Ycs77\\InertiaSSRHead\\InertiaSSRHeadServiceProvider"
+                "Inertia\\SSRHead\\InertiaSSRHeadServiceProvider"
             ]
         }
     },
