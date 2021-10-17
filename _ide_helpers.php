@@ -10,6 +10,7 @@ namespace Inertia {
      * @see \Inertia\SSRHead\ResponseMacros
      *
      * @method \Inertia\SSRHead\HeadManager headManager()
+     * @method self tag(string $element)
      * @method self title(string $title)
      * @method self description(string $description)
      * @method self image(string $image)

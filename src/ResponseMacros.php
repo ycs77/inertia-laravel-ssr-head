@@ -18,6 +18,15 @@ class ResponseMacros
         };
     }
 
+    public function tag()
+    {
+        return function ($element) {
+            $this->headManager()->tag($element);
+
+            return $this;
+        };
+    }
+
     public function title()
     {
         return function ($title) {
