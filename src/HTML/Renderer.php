@@ -46,27 +46,20 @@ class Renderer
         return '<'.$element->tag.$attrs.'>';
     }
 
-    protected function renderTagChildren(Element $element): string
+    protected function renderTagChildren($children): string
     {
-        if (is_string($element->children)) {
-            return e($element->children);
-        } elseif (is_array($element->children)) {
-            return array_reduce($element->children, function ($html, $child) {
-                if (is_string($child)) {
-                    return $html.e($child);
-                } elseif ($child instanceof Element) {
-                    return $html.$this->renderTag($child);
-                }
-                throw new InvalidArgumentException(
-                    '$element->children\'s child must be type of String or \Inertia\SSRHead\HTML\Element.'
-                );
+        if (is_string($children)) {
+            return e($children);
+        } elseif (is_array($children)) {
+            return array_reduce($children, function ($html, $child) {
+                return $html.$this->renderTagChildren($child);
             }, '');
-        } elseif ($element->children instanceof Element) {
-            return $this->renderTag($element->children);
+        } elseif ($children instanceof Element) {
+            return $this->renderTag($children);
         }
 
         throw new InvalidArgumentException(
-            '$element->children must be type of String or Array or \Inertia\SSRHead\HTML\Element.'
+            '$children must be type of String or Array or \Inertia\SSRHead\HTML\Element.'
         );
     }
 
@@ -80,7 +73,7 @@ class Renderer
         $html = $this->renderTagStart($element);
 
         if (! empty($element->children)) {
-            $html .= $this->renderTagChildren($element);
+            $html .= $this->renderTagChildren($element->children);
         }
 
         $html .= $this->renderTagEnd($element);
@@ -93,6 +86,13 @@ class Renderer
         return ($this->space > 0 ? "\n" : '').str_repeat(' ', $this->space);
     }
 
+    public function format(int $space = 4)
+    {
+        $this->space = $space;
+
+        return $this;
+    }
+
     public function render(): string
     {
         return collect($this->elements)
@@ -100,12 +100,5 @@ class Renderer
                 return $this->renderTag($element);
             })
             ->implode($this->renderBreakLineAndSpace());
-    }
-
-    public function format(int $space = 4)
-    {
-        $this->space = $space;
-
-        return $this;
     }
 }

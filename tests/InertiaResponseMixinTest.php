@@ -19,7 +19,7 @@ test('can add <title> and description metadata with inertia response', function 
     expect($headManager->getDescription())->toBe('Page description...');
 
     $response->assertSee('<title inertia>Page title</title>', false);
-    $response->assertSee('<meta name="description" content="Page description...">', false);
+    $response->assertSee('<meta name="description" content="Page description..." inertia>', false);
 });
 
 test('can add <title> and og metadata with inertia response', function () {
@@ -42,8 +42,8 @@ test('can add <title> and og metadata with inertia response', function () {
     expect($headManager->getImage())->toBe('https://example.com/image');
 
     $response->assertSee('<title inertia>Page title</title>', false);
-    $response->assertSee('<meta name="description" content="Page description...">', false);
-    $response->assertSee('<meta property="og:title" content="Page title">', false);
-    $response->assertSee('<meta property="og:description" content="Page description...">', false);
-    $response->assertSee('<meta property="og:image" content="https://example.com/image">', false);
+    $response->assertSee('<meta name="description" content="Page description..." inertia>', false);
+    $response->assertSee('<meta property="og:title" content="Page title" inertia>', false);
+    $response->assertSee('<meta property="og:description" content="Page description..." inertia>', false);
+    $response->assertSee('<meta property="og:image" content="https://example.com/image" inertia>', false);
 });

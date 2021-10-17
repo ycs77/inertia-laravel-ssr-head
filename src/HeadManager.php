@@ -40,6 +40,7 @@ class HeadManager
         $this->addTag('meta', [
             'name' => 'description',
             'content' => $description,
+            'inertia',
         ]);
 
         return $this;
@@ -58,6 +59,7 @@ class HeadManager
             $this->addTag('meta', [
                 'property' => 'og:title',
                 'content' => $ogTitle,
+                'inertia',
             ]);
         }
 
@@ -70,6 +72,7 @@ class HeadManager
             $this->addTag('meta', [
                 'property' => 'og:description',
                 'content' => $ogDescription,
+                'inertia',
             ]);
         }
 
@@ -82,6 +85,7 @@ class HeadManager
             $this->addTag('meta', [
                 'property' => 'og:image',
                 'content' => $ogImage,
+                'inertia',
             ]);
         }
 
@@ -94,6 +98,7 @@ class HeadManager
             $this->addTag('meta', [
                 'name' => 'twitter:title',
                 'content' => $twitterTitle,
+                'inertia',
             ]);
         }
 
@@ -106,6 +111,7 @@ class HeadManager
             $this->addTag('meta', [
                 'name' => 'twitter:description',
                 'content' => $twitterDescription,
+                'inertia',
             ]);
         }
 
@@ -118,6 +124,7 @@ class HeadManager
             $this->addTag('meta', [
                 'name' => 'twitter:image',
                 'content' => $twitterImage,
+                'inertia',
             ]);
         }
 

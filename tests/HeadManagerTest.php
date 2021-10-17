@@ -38,6 +38,7 @@ test('can add description and image tag', function () {
     expectsElement($elements[0])->toBe('meta', [
         'name' => 'description',
         'content' => 'Page description...',
+        'inertia',
     ], '');
 });
 
@@ -55,6 +56,7 @@ test('can add title and og:title', function () {
     expectsElement($elements[1])->toBe('meta', [
         'property' => 'og:title',
         'content' => 'Page title',
+        'inertia',
     ], '');
 });
 
@@ -72,6 +74,7 @@ test('can add title and custom og:title', function () {
     expectsElement($elements[1])->toBe('meta', [
         'property' => 'og:title',
         'content' => 'Custom og title',
+        'inertia',
     ], '');
 });
 
@@ -96,29 +99,36 @@ test('can add all base Open Graph tags', function () {
     expectsElement($elements[1])->toBe('meta', [
         'name' => 'description',
         'content' => 'Page description...',
+        'inertia',
     ], '');
     expectsElement($elements[2])->toBe('meta', [
         'property' => 'og:title',
         'content' => 'Page title',
+        'inertia',
     ], '');
     expectsElement($elements[3])->toBe('meta', [
         'property' => 'og:description',
         'content' => 'Page description...',
+        'inertia',
     ], '');
     expectsElement($elements[4])->toBe('meta', [
         'property' => 'og:image',
         'content' => 'https://example.com/image',
+        'inertia',
     ], '');
     expectsElement($elements[5])->toBe('meta', [
         'name' => 'twitter:title',
         'content' => 'Page title',
+        'inertia',
     ], '');
     expectsElement($elements[6])->toBe('meta', [
         'name' => 'twitter:description',
         'content' => 'Page description...',
+        'inertia',
     ], '');
     expectsElement($elements[7])->toBe('meta', [
         'name' => 'twitter:image',
         'content' => 'https://example.com/image',
+        'inertia',
     ], '');
 });
