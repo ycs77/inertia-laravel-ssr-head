@@ -6,7 +6,9 @@
 [![Style CI Build Status][ico-style-ci]][link-style-ci]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Simple SSR Head for Inertia Laravel.
+Simple SSR Head for Inertia Laravel, solve the social media metadata display of small Inertia.js x Laravel site. **not a full SSR solution!**
+
+Inspired by [Root template data of Inertia.js docs](https://inertiajs.com/responses#root-template-data).
 
 ## Installation
 
@@ -16,7 +18,32 @@ Install the package via composer:
 composer require ycs77/inertia-laravel-ssr-head
 ```
 
-Install the client npm package:
+Publish the config file with:
+```bash
+php artisan vendor:publish --provider="Inertia\SSRHead\InertiaSSRHeadServiceProvider" --tag="inertia-laravel-ssr-head-config"
+```
+
+Replace &lt;title&gt; to `@inertiaHead` directive:
+
+```diff
+ <!DOCTYPE html>
+ <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+ <head>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+-    <title>{{ config('app.name') }}</title>
++    @inertiaHead
+ </head>
+
+ <body>
+     @inertia
+ </body>
+ </html>
+```
+
+### Install client plugin
+
+And install the client npm package:
 
 ```bash
 npm install inertia-title
@@ -24,22 +51,94 @@ npm install inertia-title
 yarn add inertia-title
 ```
 
-Publish the config file with:
-```bash
-php artisan vendor:publish --provider="Inertia\SSRHead\InertiaSSRHeadServiceProvider" --tag="inertia-laravel-ssr-head-config"
+The package just auto update client &lt;title&gt; tag.
+
+Add plugin for Vue 2:
+
+```diff
+ ...
++import { InertiaTitleVue2 } from 'inertia-title'
+
++Vue.use(InertiaTitleVue2)
+
+ createInertiaApp({
+   ...
+ })
 ```
 
-## Usage in Laravel
+Or use in Vue 3:
 
-...
+```diff
+ ...
++import { InertiaTitleVue3 } from 'inertia-title'
 
-## Usage in Vue 2
+ createInertiaApp({
+   ...
+   setup({ el, app, props, plugin }) {
+     createApp({ render: () => h(app, props) })
+       .use(plugin)
++      .use(InertiaTitleVue3)
+       .mount(el)
+   },
+ })
+```
 
-...
+## Usage
 
-## Usage in Vue 3
+Setting page title and description:
 
-...
+```php
+return Inertia::render('Home')
+    ->title('My homepage')
+    ->description('Hello, This is my homepage~');
+```
+
+Rendered this HTML tags:
+
+```html
+<head>
+    <title inertia>My homepage</title>
+    <meta name="description" content="Hello, This is my homepage~" inertia>
+</head>
+```
+
+The head tags just render with server-side on first visit page, client only update &lt;title&gt;, no update other meta tags.
+
+The title will injection to `$page`, you can using `$page.title` or prop `title` get the page title in client like Vue 2/3:
+
+```js
+export default {
+  props: {
+    title: String,
+  },
+  mounted() {
+    this.title             // => 'My homepage'  (with props)
+    this.$page.props.title // => 'My homepage'  (with $page)
+  },
+}
+```
+
+Also, if you are using this package, it is not recommended to use Inertia &lt;Head&gt;.
+
+Render open graph and twitter tags, have `description`, `og:title`, `og:description`, `og:image` meta tags:
+
+```php
+return Inertia::render('Home')
+    ->title('My homepage')
+    ->description('Hello, This is my homepage~')
+    ->image('https://example.com/image')
+    ->ogMeta()
+    ->twitterMeta();
+```
+
+Or if you want only render `og:title`, `og:description` meta tags:
+
+```php
+return Inertia::render('Home')
+    ->title('My homepage')
+    ->ogTitle('Custom og title')
+    ->ogDescription('Custom og description...');
+```
 
 ## Testing
 
@@ -47,8 +146,13 @@ php artisan vendor:publish --provider="Inertia\SSRHead\InertiaSSRHeadServiceProv
 composer test
 ```
 
+## Alternatives
+
+If need full SSR solution, please using [Inertia.js Official Server-side Rendering](https://inertiajs.com/server-side-rendering).
+
 ## Reference
 
+* Inertia.js docs: [Root template data](https://inertiajs.com/responses#root-template-data)
 * Facebool for Developers: [Webmasters - Sharing](https://developers.facebook.com/docs/sharing/webmasters)
 * Twitter Developer Platform: [About Twitter Cards | Docs](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards)
 
@@ -58,7 +162,7 @@ Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+Please review [our security policy](.github/SECURITY.md) on how to report security vulnerabilities.
 
 ## Credits
 
