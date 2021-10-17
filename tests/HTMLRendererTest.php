@@ -77,10 +77,10 @@ test('can rendered mitiple tags with break line', function () {
 
     $html = $renderer->format(8)->render();
 
-    expect($html)->toBe(<<<EOF
+    expect($html)->toBe(<<<'HTML'
 <title inertia>Page title</title>
         <meta name="description" content="Page description...">
         <meta property="og:description" content="Page description...">
         <meta property="og:image" content="https://example.com/image">
-EOF);
+HTML);
 });

@@ -1,5 +1,5 @@
 preset: laravel
 
 finder:
-  exclude:
+  not-name:
     - "_ide_helpers.php"

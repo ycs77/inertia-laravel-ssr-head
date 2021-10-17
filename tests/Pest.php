@@ -13,7 +13,7 @@ uses(TestCase::class)->in(__DIR__);
  */
 function expectsElement(Element $element)
 {
-    return new class ($element)
+    return new class($element)
     {
         protected $element;
 
