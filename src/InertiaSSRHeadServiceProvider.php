@@ -26,13 +26,13 @@ class InertiaSSRHeadServiceProvider extends ServiceProvider
 
     protected function registerInertiaResponseMixin()
     {
-        Response::mixin(new ResponseMixin);
+        Response::mixin(new ResponseMacros);
     }
 
     protected function registerBladeDirectives()
     {
         Blade::directive('inertiaHead', function () {
-            return "<?php echo app(\Inertia\SSRHead\HeadManager::class)->renderer()->format(8)->render().\"\\n\"; ?>";
+            return "<?php echo app(\Inertia\SSRHead\HeadManager::class)->renderer()->format(4)->render().\"\\n\"; ?>";
         });
     }
 }

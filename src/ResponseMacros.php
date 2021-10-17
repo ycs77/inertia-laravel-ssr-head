@@ -5,11 +5,8 @@ namespace Inertia\SSRHead;
 /**
  * @mixin \Inertia\Response
  */
-class ResponseMixin
+class ResponseMacros
 {
-    /**
-     * @return \Inertia\SSRHead\HeadManager
-     */
     public function headManager()
     {
         return function () {
