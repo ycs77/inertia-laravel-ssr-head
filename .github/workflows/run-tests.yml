@@ -14,23 +14,15 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         php: [7.3, 7.4, 8.0]
-        laravel: [^5.4, 6.*, 7.*, 8.*]
+        laravel: [7.*, 8.*]
         stability: [prefer-lowest, prefer-stable]
         include:
-          - laravel: ^5.4
-            testbench: ^3.4
-            stability: prefer-lowest
-          - laravel: ^5.4
-            testbench: ^3.8
-            stability: prefer-stable
-          - laravel: 6.*
-            testbench: ^4.0
           - laravel: 7.*
             testbench: ^5.0
           - laravel: 8.*
             testbench: ^6.6
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }}
 
     steps:
       - name: Checkout code
