@@ -15,14 +15,13 @@ jobs:
         os: [ubuntu-latest]
         php: [7.3, 7.4, 8.0]
         laravel: [7.*, 8.*]
-        stability: [prefer-lowest, prefer-stable]
         include:
           - laravel: 7.*
             testbench: ^5.0
           - laravel: 8.*
             testbench: ^6.6
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }}
+    name: P${{ matrix.php }} - L${{ matrix.laravel }}
 
     steps:
       - name: Checkout code
@@ -43,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+          composer update --prefer-stable --prefer-dist --no-interaction
 
       - name: Execute tests
         run: vendor/bin/pest
