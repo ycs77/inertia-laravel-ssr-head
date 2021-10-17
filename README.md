@@ -6,7 +6,9 @@
 [![Style CI Build Status][ico-style-ci]][link-style-ci]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Simple SSR Head for Inertia Laravel, solve the social media metadata display of small Inertia.js x Laravel site. **not a full SSR solution!**
+Simple SSR Head for Inertia Laravel, solve the social media metadata display of small Inertia.js x Laravel site.
+
+**not a full SSR solution!!**
 
 Inspired by [Root template data of Inertia.js docs](https://inertiajs.com/responses#root-template-data).
 
