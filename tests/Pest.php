@@ -9,11 +9,12 @@ use PHPUnit\Framework\Assert;
 uses(TestCase::class)->in(__DIR__);
 
 /**
- * Custom Test Helpers
+ * Custom Test Helpers.
  */
-
-function expectsElement(Element $element) {
-    return new class ($element) {
+function expectsElement(Element $element)
+{
+    return new class ($element)
+    {
         protected $element;
 
         public function __construct($element)
@@ -30,7 +31,8 @@ function expectsElement(Element $element) {
     };
 }
 
-function toTestResponse(Response $response) {
+function toTestResponse(Response $response)
+{
     return TestResponse::fromBaseResponse(
         $response->toResponse(request())
     );
