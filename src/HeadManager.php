@@ -2,26 +2,19 @@
 
 namespace Inertia\SSRHead;
 
-use Inertia\SSRHead\HTML\Element;
-use Inertia\SSRHead\HTML\Renderer;
-
 class HeadManager
 {
-    protected $renderer;
     protected $elements = [];
 
     protected $title;
     protected $description;
     protected $image;
 
-    public function __construct(Renderer $renderer)
-    {
-        $this->renderer = $renderer;
-    }
+    protected $space = 0;
 
-    public function addTag(string $tag, array $props = [], $children = '')
+    public function tag(string $element)
     {
-        $this->elements[] = new Element($tag, $props, $children);
+        $this->elements[] = $element;
 
         return $this;
     }
@@ -29,7 +22,7 @@ class HeadManager
     public function title(string $title)
     {
         $this->title = $title;
-        $this->addTag('title', ['inertia'], $title);
+        $this->tag("<title inertia>$title</title>");
 
         return $this;
     }
@@ -37,11 +30,7 @@ class HeadManager
     public function description(string $description)
     {
         $this->description = $description;
-        $this->addTag('meta', [
-            'name' => 'description',
-            'content' => $description,
-            'inertia',
-        ]);
+        $this->tag("<meta name=\"description\" content=\"$description\" inertia>");
 
         return $this;
     }
@@ -53,79 +42,55 @@ class HeadManager
         return $this;
     }
 
-    public function ogTitle(string $ogTitle = null)
+    public function ogTitle(string $title = null)
     {
-        if ($ogTitle = $ogTitle ?? $this->title) {
-            $this->addTag('meta', [
-                'property' => 'og:title',
-                'content' => $ogTitle,
-                'inertia',
-            ]);
+        if ($title = $title ?? $this->title) {
+            $this->tag("<meta property=\"og:title\" content=\"$title\" inertia>");
         }
 
         return $this;
     }
 
-    public function ogDescription(string $ogDescription = null)
+    public function ogDescription(string $description = null)
     {
-        if ($ogDescription = $ogDescription ?? $this->description) {
-            $this->addTag('meta', [
-                'property' => 'og:description',
-                'content' => $ogDescription,
-                'inertia',
-            ]);
+        if ($description = $description ?? $this->description) {
+            $this->tag("<meta property=\"og:description\" content=\"$description\" inertia>");
         }
 
         return $this;
     }
 
-    public function ogImage(string $ogImage = null)
+    public function ogImage(string $image = null)
     {
-        if ($ogImage = $ogImage ?? $this->image) {
-            $this->addTag('meta', [
-                'property' => 'og:image',
-                'content' => $ogImage,
-                'inertia',
-            ]);
+        if ($image = $image ?? $this->image) {
+            $this->tag("<meta property=\"og:image\" content=\"$image\" inertia>");
         }
 
         return $this;
     }
 
-    public function twitterTitle(string $twitterTitle = null)
+    public function twitterTitle(string $title = null)
     {
-        if ($twitterTitle = $twitterTitle ?? $this->title) {
-            $this->addTag('meta', [
-                'name' => 'twitter:title',
-                'content' => $twitterTitle,
-                'inertia',
-            ]);
+        if ($title = $title ?? $this->title) {
+            $this->tag("<meta property=\"twitter:title\" content=\"$title\" inertia>");
         }
 
         return $this;
     }
 
-    public function twitterDescription(string $twitterDescription = null)
+    public function twitterDescription(string $description = null)
     {
-        if ($twitterDescription = $twitterDescription ?? $this->description) {
-            $this->addTag('meta', [
-                'name' => 'twitter:description',
-                'content' => $twitterDescription,
-                'inertia',
-            ]);
+        if ($description = $description ?? $this->description) {
+            $this->tag("<meta property=\"twitter:description\" content=\"$description\" inertia>");
         }
 
         return $this;
     }
 
-    public function twitterImage(string $twitterImage = null)
+    public function twitterImage(string $image = null)
     {
-        if ($twitterImage = $twitterImage ?? $this->image) {
-            $this->addTag('meta', [
-                'name' => 'twitter:image',
-                'content' => $twitterImage,
-                'inertia',
-            ]);
+        if ($image = $image ?? $this->image) {
+            $this->tag("<meta property=\"twitter:image\" content=\"$image\" inertia>");
         }
 
         return $this;
@@ -158,8 +123,20 @@ class HeadManager
         return $this;
     }
 
-    public function renderer(): Renderer
+    public function format(int $space = 4)
     {
-        return $this->renderer->setElements($this->elements);
+        $this->space = $space;
+
+        return $this;
+    }
+
+    protected function renderBreakLineAndSpace(): string
+    {
+        return ($this->space > 0 ? "\n" : '').str_repeat(' ', $this->space);
+    }
+
+    public function render(): string
+    {
+        return collect($this->elements)->implode($this->renderBreakLineAndSpace());
     }
 }
