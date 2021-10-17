@@ -3,18 +3,20 @@
 namespace Inertia\SSRHead;
 
 use Inertia\SSRHead\HTML\Element;
+use Inertia\SSRHead\HTML\Renderer;
 
 class HeadManager
 {
-    protected $elements;
+    protected $renderer;
+    protected $elements = [];
 
     protected $title;
     protected $description;
     protected $image;
 
-    public function __construct(array $elements = [])
+    public function __construct(Renderer $renderer)
     {
-        $this->elements = $elements;
+        $this->renderer = $renderer;
     }
 
     public function addTag(string $tag, array $props = [], $children = '')
@@ -122,8 +124,35 @@ class HeadManager
         return $this;
     }
 
-    public function getElements()
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    public function getElements(): array
     {
         return $this->elements;
+    }
+
+    public function setElements(array $elements)
+    {
+        $this->elements = $elements;
+
+        return $this;
+    }
+
+    public function renderer(): Renderer
+    {
+        return $this->renderer->setElements($this->elements);
     }
 }

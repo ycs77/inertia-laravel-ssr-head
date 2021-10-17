@@ -2,13 +2,15 @@
 
 namespace Inertia\SSRHead\Tests;
 
-use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
 use Inertia\SSRHead\InertiaSSRHeadServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-    use InteractsWithViews;
+    protected function defineEnvironment($app)
+    {
+        $app['view']->addLocation(__DIR__.'/stubs/views');
+    }
 
     protected function getPackageProviders($app)
     {

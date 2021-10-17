@@ -10,9 +10,16 @@ class Renderer
 
     protected $space = 0;
 
-    public function __construct(array $elements)
+    public function __construct(array $elements = [])
     {
         $this->elements = $elements;
+    }
+
+    public function setElements(array $elements)
+    {
+        $this->elements = $elements;
+
+        return $this;
     }
 
     protected function isUnaryTag(Element $element): bool

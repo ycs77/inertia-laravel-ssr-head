@@ -1,31 +1,32 @@
 <?php
 
 use Inertia\SSRHead\HeadManager;
+use Inertia\SSRHead\HTML\Renderer;
 
 test('can add tag', function () {
-    $head = new HeadManager();
+    $head = new HeadManager(new Renderer);
 
     $head->addTag('title', ['inertia'], 'Page title');
 
     $elements = $head->getElements();
 
     expect($elements)->toHaveCount(1);
-    expectElement($elements[0])->toBe('title', ['inertia'], 'Page title');
+    expectsElement($elements[0])->toBe('title', ['inertia'], 'Page title');
 });
 
 test('can add title tag', function () {
-    $head = new HeadManager();
+    $head = new HeadManager(new Renderer);
 
     $head->title('Page title');
 
     $elements = $head->getElements();
 
     expect($elements)->toHaveCount(1);
-    expectElement($elements[0])->toBe('title', ['inertia'], 'Page title');
+    expectsElement($elements[0])->toBe('title', ['inertia'], 'Page title');
 });
 
 test('can add description and image tag', function () {
-    $head = new HeadManager();
+    $head = new HeadManager(new Renderer);
 
     $head
         ->description('Page description...')
@@ -34,14 +35,14 @@ test('can add description and image tag', function () {
     $elements = $head->getElements();
 
     expect($elements)->toHaveCount(1);
-    expectElement($elements[0])->toBe('meta', [
+    expectsElement($elements[0])->toBe('meta', [
         'name' => 'description',
         'content' => 'Page description...',
     ], '');
 });
 
 test('can add title and og:title', function () {
-    $head = new HeadManager();
+    $head = new HeadManager(new Renderer);
 
     $head
         ->title('Page title')
@@ -50,15 +51,15 @@ test('can add title and og:title', function () {
     $elements = $head->getElements();
 
     expect($elements)->toHaveCount(2);
-    expectElement($elements[0])->toBe('title', ['inertia'], 'Page title');
-    expectElement($elements[1])->toBe('meta', [
+    expectsElement($elements[0])->toBe('title', ['inertia'], 'Page title');
+    expectsElement($elements[1])->toBe('meta', [
         'property' => 'og:title',
         'content' => 'Page title',
     ], '');
 });
 
 test('can add title and custom og:title', function () {
-    $head = new HeadManager();
+    $head = new HeadManager(new Renderer);
 
     $head
         ->title('Page title')
@@ -67,15 +68,15 @@ test('can add title and custom og:title', function () {
     $elements = $head->getElements();
 
     expect($elements)->toHaveCount(2);
-    expectElement($elements[0])->toBe('title', ['inertia'], 'Page title');
-    expectElement($elements[1])->toBe('meta', [
+    expectsElement($elements[0])->toBe('title', ['inertia'], 'Page title');
+    expectsElement($elements[1])->toBe('meta', [
         'property' => 'og:title',
         'content' => 'Custom og title',
     ], '');
 });
 
 test('can add all base Open Graph tags', function () {
-    $head = new HeadManager();
+    $head = new HeadManager(new Renderer);
 
     $head
         ->title('Page title')
@@ -91,32 +92,32 @@ test('can add all base Open Graph tags', function () {
     $elements = $head->getElements();
 
     expect($elements)->toHaveCount(8);
-    expectElement($elements[0])->toBe('title', ['inertia'], 'Page title');
-    expectElement($elements[1])->toBe('meta', [
+    expectsElement($elements[0])->toBe('title', ['inertia'], 'Page title');
+    expectsElement($elements[1])->toBe('meta', [
         'name' => 'description',
         'content' => 'Page description...',
     ], '');
-    expectElement($elements[2])->toBe('meta', [
+    expectsElement($elements[2])->toBe('meta', [
         'property' => 'og:title',
         'content' => 'Page title',
     ], '');
-    expectElement($elements[3])->toBe('meta', [
+    expectsElement($elements[3])->toBe('meta', [
         'property' => 'og:description',
         'content' => 'Page description...',
     ], '');
-    expectElement($elements[4])->toBe('meta', [
+    expectsElement($elements[4])->toBe('meta', [
         'property' => 'og:image',
         'content' => 'https://example.com/image',
     ], '');
-    expectElement($elements[5])->toBe('meta', [
+    expectsElement($elements[5])->toBe('meta', [
         'name' => 'twitter:title',
         'content' => 'Page title',
     ], '');
-    expectElement($elements[6])->toBe('meta', [
+    expectsElement($elements[6])->toBe('meta', [
         'name' => 'twitter:description',
         'content' => 'Page description...',
     ], '');
-    expectElement($elements[7])->toBe('meta', [
+    expectsElement($elements[7])->toBe('meta', [
         'name' => 'twitter:image',
         'content' => 'https://example.com/image',
     ], '');
