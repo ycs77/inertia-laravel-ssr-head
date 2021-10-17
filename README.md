@@ -20,10 +20,11 @@ Install the package via composer:
 composer require ycs77/inertia-laravel-ssr-head
 ```
 
-Publish the config file with:
+<!-- Publish the config file with:
+
 ```bash
 php artisan vendor:publish --provider="Inertia\SSRHead\InertiaSSRHeadServiceProvider" --tag="inertia-laravel-ssr-head-config"
-```
+``` -->
 
 Replace &lt;title&gt; to `@inertiaHead` directive:
 
