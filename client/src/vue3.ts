@@ -1,7 +1,7 @@
-import updateTitle from './updateTitle'
+import { useInertiaTitle } from './title'
 
 export default {
   install(app: any, options: any) {
-    updateTitle()
-  }
+    useInertiaTitle()
+  },
 }

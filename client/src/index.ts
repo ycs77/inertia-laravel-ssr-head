@@ -1,1 +1,1 @@
-export { default as updateTitle } from './updateTitle'
+export { useInertiaTitle } from './title'

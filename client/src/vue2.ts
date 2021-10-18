@@ -1,7 +1,7 @@
-import updateTitle from './updateTitle'
+import { useInertiaTitle } from './title'
 
 export default {
   install(Vue: any, options: any) {
-    updateTitle()
-  }
+    useInertiaTitle()
+  },
 }

@@ -84,18 +84,18 @@ Use in React in `app.js`:
 
 ```diff
 ...
-+import { useUpdateTitle } from 'inertia-title/react'
++import { useInertiaTitle } from 'inertia-title'
 
-+useUpdateTitle()
++useInertiaTitle()
 ```
 
 Use in Svelte in `app.js`:
 
 ```diff
 ...
-+import { useUpdateTitle } from 'inertia-title/svelte'
++import { useInertiaTitle } from 'inertia-title'
 
-+useUpdateTitle()
++useInertiaTitle()
 ```
 
 ## Config
