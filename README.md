@@ -107,7 +107,7 @@ Rendered this HTML tags:
 
 The head tags just render with server-side on first visit page, client only update &lt;title&gt;, no update other meta tags.
 
-The title will injection to `$page`, you can using `$page.title` or prop `title` get the page title in client like Vue 2/3:
+The title will injection to `$page`, you can get the page title with using prop `title` or `$page.props.title` in client Vue 2/3:
 
 ```js
 export default {
