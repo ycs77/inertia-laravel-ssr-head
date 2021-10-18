@@ -80,24 +80,6 @@ createInertiaApp({
 })
 ```
 
-Use in React in `app.js`:
-
-```diff
-...
-+import { useInertiaTitle } from 'inertia-title'
-
-+useInertiaTitle()
-```
-
-Use in Svelte in `app.js`:
-
-```diff
-...
-+import { useInertiaTitle } from 'inertia-title'
-
-+useInertiaTitle()
-```
-
 ## Config
 
 Publish the config file with:
