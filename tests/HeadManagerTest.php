@@ -44,6 +44,22 @@ test('can use title template with attribute', function () {
     expect($elements)->toBe(['<title inertia>Page title - My website</title>']);
 });
 
+test('can use title template with closure', function () {
+    $head = new HeadManager();
+
+    $head->titleTemplate(fn ($title) => $title ? "$title - My website" : 'My website');
+
+    $elements = $head->getElements();
+
+    expect($elements)->toBe(['<title inertia>My website</title>']);
+
+    $head->title('Page title');
+
+    $elements = $head->getElements();
+
+    expect($elements)->toBe(['<title inertia>Page title - My website</title>']);
+});
+
 test('without title template', function () {
     $head = new HeadManager();
 

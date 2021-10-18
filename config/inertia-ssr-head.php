@@ -2,8 +2,6 @@
 
 return [
 
-    'title_template' => '%s', // '%s - '.env('APP_NAME'),
-
     'fb_app_id' => env('FB_APP_ID'),
 
     'twitter_site' => env('TWITTER_SITE'),

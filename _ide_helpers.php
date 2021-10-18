@@ -8,7 +8,8 @@ namespace Inertia {
 
     /**
      * @method self head(string $html)
-     * @method self title(string $title)
+     * @method self title(string $title, string|false|\Closure $template)
+     * @method self titleTemplate(string|\Closure $template)
      * @method self description(string $description)
      * @method self image(string $image)
      * @method self ogMeta(array|null $ogMeta)
@@ -40,6 +41,16 @@ namespace Inertia {
      * @see \Inertia\SSRHead\HeadManager
      */
     class Response
+    {
+        //
+    }
+
+    /**
+     * @method static self titleTemplate(string|\Closure $template)
+     *
+     * @see \Inertia\SSRHead\HeadManager
+     */
+    class Inertia
     {
         //
     }

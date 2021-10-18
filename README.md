@@ -113,8 +113,6 @@ You can setting the twitter site username or many in config `inertia-ssr-head.ph
 
 return [
 
-    'title_template' => '%s', // '%s - '.env('APP_NAME'),
-
     'fb_app_id' => env('FB_APP_ID'),
 
     'twitter_site' => env('TWITTER_SITE'),
@@ -173,13 +171,21 @@ Also, if you are using this package, it is not recommended to use Inertia &lt;He
 
 ### Title template
 
-If you want add the Web site name after title, open config `inertia-ssr-head.php` setting `title_template`:
+If you want add the Web site name after title, use `titleTemplate()` in `AppServiceProvider`:
 
 ```php
-    'title_template' => '%s - '.env('APP_NAME'),
+use Inertia\Inertia;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        Inertia::titleTemplate(fn ($title) => $title ? "$title - My App" : 'My App');
+    }
+}
 ```
 
-Or set title template in one Inertia page:
+Or setting for one Inertia page:
 
 ```php
 return Inertia::render('Home')

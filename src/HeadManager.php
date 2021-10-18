@@ -2,13 +2,22 @@
 
 namespace Inertia\SSRHead;
 
+use Closure;
+
 class HeadManager
 {
+    /** @var string[] */
     protected $elements = [];
 
+    /** @var string */
     protected $title;
+    /** @var string */
+    protected $fullTitle;
+    /** @var string|\Closure */
     protected $titleTemplate = null;
+    /** @var string */
     protected $description;
+    /** @var string */
     protected $image;
 
     protected $space = 0;
@@ -17,14 +26,14 @@ class HeadManager
     {
         $element = sprintf($element, ...$vars);
 
-        if (preg_match('/^\<meta (name|property)\="([\w\-:]+)"/', $element, $elementMatches) === 1) {
+        if (preg_match('/^(\<meta (name|property)\="([\w\-:]+)"|\<title)/', $element, $elementMatches) === 1) {
             $elementStart = $elementMatches[0];
 
             $matched = preg_grep('/^'.preg_quote($elementStart, '/').'/', $this->elements);
             if ($matched !== false && count($matched) >= 1) {
                 $matchedKey = array_keys($matched)[0];
 
-                // Replace exist <meta> element
+                // Replace exist <meta> / <title> element
                 $this->elements[$matchedKey] = $element;
             } else {
                 $this->elements[] = $element;
@@ -36,23 +45,40 @@ class HeadManager
         return $this;
     }
 
-    public function title(string $title, $template = null)
+    /**
+     * @param  string|null  $name
+     * @param  string|false|\Closure  $template
+     * @return $this
+     */
+    public function title($title, $template = null)
     {
-        if ($template !== false && ($template || $this->titleTemplate)) {
-            $title = sprintf(
-                is_string($template) ? $template : $this->titleTemplate, $title
-            );
+        $this->title = $title;
+
+        if ($template !== false && $template = ($template ?? $this->titleTemplate)) {
+            if (is_string($template)) {
+                $title = sprintf($template, $title);
+            } elseif ($template instanceof Closure) {
+                $title = $template($title);
+            }
         }
 
-        $this->title = $title;
+        $this->fullTitle = $title;
         $this->tag('<title inertia>%s</title>', e($title));
 
         return $this;
     }
 
-    public function titleTemplate(?string $template)
+    /**
+     * @param  string|\Closure  $template
+     * @return $this
+     */
+    public function titleTemplate($template)
     {
         $this->titleTemplate = $template;
+
+        if ($this->titleTemplate instanceof Closure) {
+            $this->title($this->title, $template);
+        }
 
         return $this;
     }
@@ -340,6 +366,11 @@ class HeadManager
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function getFullTitle(): string
+    {
+        return $this->fullTitle;
     }
 
     public function getDescription(): string

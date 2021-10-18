@@ -24,6 +24,19 @@ test('can add <title> and description metadata with inertia response', function 
     ], false);
 });
 
+test('using Inertia::titleTemplate()', function () {
+    Inertia::titleTemplate(fn ($title) => $title ? "$title - My App" : 'My App');
+
+    $response = Inertia::render('TestPage');
+    $response = toTestResponse($response);
+
+    $response->assertViewHas('page');
+    $page = $response->viewData('page');
+    expect($page['props']['title'])->toBe('My App');
+
+    $response->assertSee('<title inertia>My App</title>', false);
+});
+
 test('can add <title> and open graph metadata with inertia response', function () {
     $response = Inertia::render('TestPage')
         ->title('Page title')

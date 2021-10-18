@@ -5,6 +5,7 @@ namespace Inertia\SSRHead;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Inertia\Response;
+use Inertia\ResponseFactory as InertiaResponseFactory;
 
 class InertiaSSRHeadServiceProvider extends ServiceProvider
 {
@@ -13,22 +14,23 @@ class InertiaSSRHeadServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/inertia-ssr-head.php', 'inertia-ssr-head');
 
         $this->app->singleton(HeadManager::class, function () {
-            return tap(new HeadManager(), function (HeadManager $manager) {
-                $manager->titleTemplate(config('inertia-ssr-head.title_template'));
-            });
+            return new HeadManager();
         });
+
+        $this->app->bind(InertiaResponseFactory::class, ResponseFactory::class);
     }
 
     public function boot()
     {
-        $this->registerInertiaResponseMacros();
+        $this->registerMacros();
         $this->registerBladeDirectives();
         $this->publishingFiles();
     }
 
-    protected function registerInertiaResponseMacros()
+    protected function registerMacros()
     {
         Response::mixin(new ResponseMacros);
+
     }
 
     protected function registerBladeDirectives()

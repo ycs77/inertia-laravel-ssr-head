@@ -29,9 +29,19 @@ class ResponseMacros
 
     public function title()
     {
-        return function ($title) {
-            $this->with('title', $title);
-            $this->headManager()->title($title);
+        return function ($title, $template = null) {
+            $this->headManager()->title($title, $template);
+            $this->with('title', $this->headManager()->getFullTitle());
+
+            return $this;
+        };
+    }
+
+    public function titleTemplate()
+    {
+        return function ($template) {
+            $this->headManager()->titleTemplate($template);
+            $this->with('title', $this->headManager()->getFullTitle());
 
             return $this;
         };
