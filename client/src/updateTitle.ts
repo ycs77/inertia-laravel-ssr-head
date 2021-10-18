@@ -1,6 +1,6 @@
 import { Inertia } from '@inertiajs/inertia'
 
-export default function updateTitle() {
+export default function updateTitle(): void {
   const originalTitle = document.title
 
   function setTitle(value: string) {

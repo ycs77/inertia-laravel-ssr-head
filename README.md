@@ -23,19 +23,19 @@ composer require ycs77/inertia-laravel-ssr-head
 Replace `<title>` to `@inertiaHead` directive:
 
 ```diff
- <!DOCTYPE html>
- <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
- <head>
-     <meta charset="utf-8" />
-     <meta name="viewport" content="width=device-width, initial-scale=1">
--    <title>{{ config('app.name') }}</title>
-+    @inertiaHead
- </head>
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+-   <title>{{ config('app.name') }}</title>
++   @inertiaHead
+</head>
 
- <body>
-     @inertia
- </body>
- </html>
+<body>
+    @inertia
+</body>
+</html>
 ```
 
 ### Install client plugin
@@ -50,34 +50,52 @@ yarn add inertia-title
 
 The package just auto update client &lt;title&gt; tag.
 
-Add plugin for Vue 2:
+Add plugin for Vue 2 in `app.js`:
 
 ```diff
- ...
-+import { InertiaTitleVue2 } from 'inertia-title'
+...
++import InertiaTitle from 'inertia-title/vue2'
 
-+Vue.use(InertiaTitleVue2)
++Vue.use(InertiaTitle)
 
- createInertiaApp({
-   ...
- })
+createInertiaApp({
+  ...
+})
 ```
 
-Or use in Vue 3:
+Use in Vue 3 in `app.js`:
 
 ```diff
  ...
-+import { InertiaTitleVue3 } from 'inertia-title'
++import InertiaTitle from 'inertia-title/vue3'
 
- createInertiaApp({
-   ...
-   setup({ el, app, props, plugin }) {
-     createApp({ render: () => h(app, props) })
-       .use(plugin)
-+      .use(InertiaTitleVue3)
-       .mount(el)
-   },
- })
+createInertiaApp({
+  ...
+  setup({ el, app, props, plugin }) {
+    createApp({ render: () => h(app, props) })
+      .use(plugin)
++     .use(InertiaTitle)
+      .mount(el)
+  },
+})
+```
+
+Use in React in `app.js`:
+
+```diff
+...
++import { useUpdateTitle } from 'inertia-title/react'
+
++useUpdateTitle()
+```
+
+Use in Svelte in `app.js`:
+
+```diff
+...
++import { useUpdateTitle } from 'inertia-title/svelte'
+
++useUpdateTitle()
 ```
 
 ## Config
