@@ -123,15 +123,14 @@ export default {
 
 Also, if you are using this package, it is not recommended to use Inertia &lt;Head&gt;.
 
-Render open graph and twitter tags, have `description`, `og:title`, `og:description`, `og:image` meta tags:
+Render Open Graph and Twitter Card tags, have `title`, `description`, `ogMeta()` is generate the Open Graph meta `og:title`, `og:description`, `og:image`:
 
 ```php
 return Inertia::render('Home')
     ->title('My homepage')
     ->description('Hello, This is my homepage~')
     ->image('https://example.com/image')
-    ->ogMeta()
-    ->twitterMeta();
+    ->ogMeta();
 ```
 
 Or if you want only render `og:title`, `og:description` meta tags:
@@ -141,6 +140,16 @@ return Inertia::render('Home')
     ->title('My homepage')
     ->ogTitle('Custom og title')
     ->ogDescription('Custom og description...');
+```
+
+And same as `twitterMeta()`:
+
+```php
+return Inertia::render('Home')
+    ->title('My homepage')
+    ->description('Hello, This is my homepage~')
+    ->image('https://example.com/image')
+    ->twitterMeta();
 ```
 
 ## Testing
