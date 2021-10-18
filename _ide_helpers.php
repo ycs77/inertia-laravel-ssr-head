@@ -7,13 +7,11 @@
 namespace Inertia {
 
     /**
-     * @see \Inertia\SSRHead\ResponseMacros
-     *
      * @method self head(string $html)
      * @method self title(string $title)
      * @method self description(string $description)
      * @method self image(string $image)
-     * @method self ogMeta()
+     * @method self ogMeta(array|null $ogMeta)
      * @method self ogUrl(string|null $url)
      * @method self ogTitle(string|null $title)
      * @method self ogDescription(string|null $description)
@@ -22,22 +20,24 @@ namespace Inertia {
      * @method self ogType(string|null $type)
      * @method self ogLocale(string $locale)
      * @method self fbAppID(string|null $id)
-     * @method self twitterMeta()
+     * @method self twitterCard(string|null $type)
+     * @method self twitterSummaryCard(array|null meta)
+     * @method self twitterLargeCard(array|null meta)
+     * @method self twitterAppCard(array|null meta)
+     * @method self twitterPlayerCard(array|null meta)
      * @method self twitterTitle(string|null $title)
      * @method self twitterDescription(string|null $description)
      * @method self twitterImage(string|null $image, string|null $alt)
-     * @method self twitterCard(string|null $image)
-     * @method self twitterSummaryCard()
-     * @method self twitterLargeCard()
-     * @method self twitterAppCard()
-     * @method self twitterPlayerCard()
      * @method self twitterSite(string|null $username, string|null $id)
      * @method self twitterCreator(string|null $username, string|null $id)
-     * @method self twitterPlayer(array $player)
-     * @method self twitterAppForIphone(array $app)
-     * @method self twitterAppForIpad(array $app)
-     * @method self twitterAppForGoogleplay(array $app)
+     * @method self twitterAppForIphone(array|null $app)
+     * @method self twitterAppForIpad(array|null $app)
+     * @method self twitterAppForGoogleplay(array|null $app)
      * @method self twitterAppCountry(string $country)
+     * @method self twitterPlayer(array $player)
+     *
+     * @see \Inertia\SSRHead\ResponseMacros
+     * @see \Inertia\SSRHead\HeadManager
      */
     class Response
     {

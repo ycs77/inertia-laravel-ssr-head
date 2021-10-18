@@ -57,11 +57,8 @@ class ResponseMacros
 
     public function ogMeta()
     {
-        return function () {
-            $this->headManager()
-                ->ogTitle()
-                ->ogDescription()
-                ->ogImage();
+        return function ($meta = []) {
+            $this->headManager()->ogMeta($meta);
 
             return $this;
         };
@@ -139,18 +136,6 @@ class ResponseMacros
         };
     }
 
-    public function twitterMeta()
-    {
-        return function () {
-            $this->headManager()
-                ->twitterTitle()
-                ->twitterDescription()
-                ->twitterImage();
-
-            return $this;
-        };
-    }
-
     public function twitterTitle()
     {
         return function ($title = null) {
@@ -180,8 +165,8 @@ class ResponseMacros
 
     public function twitterCard()
     {
-        return function ($card = 'summary') {
-            $this->headManager()->twitterCard($card);
+        return function ($type = 'summary') {
+            $this->headManager()->twitterCard($type);
 
             return $this;
         };
@@ -189,8 +174,8 @@ class ResponseMacros
 
     public function twitterSummaryCard()
     {
-        return function () {
-            $this->headManager()->twitterSummaryCard();
+        return function ($meta = []) {
+            $this->headManager()->twitterSummaryCard($meta);
 
             return $this;
         };
@@ -198,8 +183,8 @@ class ResponseMacros
 
     public function twitterLargeCard()
     {
-        return function () {
-            $this->headManager()->twitterLargeCard();
+        return function ($meta = []) {
+            $this->headManager()->twitterLargeCard($meta);
 
             return $this;
         };
@@ -207,8 +192,8 @@ class ResponseMacros
 
     public function twitterAppCard()
     {
-        return function () {
-            $this->headManager()->twitterAppCard();
+        return function ($meta = []) {
+            $this->headManager()->twitterAppCard($meta);
 
             return $this;
         };
@@ -216,8 +201,8 @@ class ResponseMacros
 
     public function twitterPlayerCard()
     {
-        return function () {
-            $this->headManager()->twitterPlayerCard();
+        return function ($meta = []) {
+            $this->headManager()->twitterPlayerCard($meta);
 
             return $this;
         };
@@ -241,18 +226,9 @@ class ResponseMacros
         };
     }
 
-    public function twitterPlayer()
-    {
-        return function ($player) {
-            $this->headManager()->twitterPlayer($player);
-
-            return $this;
-        };
-    }
-
     public function twitterAppForIphone()
     {
-        return function ($app) {
+        return function ($app = []) {
             $this->headManager()->twitterAppForIphone($app);
 
             return $this;
@@ -261,7 +237,7 @@ class ResponseMacros
 
     public function twitterAppForIpad()
     {
-        return function ($app) {
+        return function ($app = []) {
             $this->headManager()->twitterAppForIpad($app);
 
             return $this;
@@ -270,7 +246,7 @@ class ResponseMacros
 
     public function twitterAppForGoogleplay()
     {
-        return function ($app) {
+        return function ($app = []) {
             $this->headManager()->twitterAppForGoogleplay($app);
 
             return $this;
@@ -281,6 +257,15 @@ class ResponseMacros
     {
         return function ($country) {
             $this->headManager()->twitterAppCountry($country);
+
+            return $this;
+        };
+    }
+
+    public function twitterPlayer()
+    {
+        return function ($player) {
+            $this->headManager()->twitterPlayer($player);
 
             return $this;
         };

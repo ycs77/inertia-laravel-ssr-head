@@ -14,7 +14,23 @@ class HeadManager
 
     public function tag(string $element, ...$vars)
     {
-        $this->elements[] = sprintf($element, ...$vars);
+        $element = sprintf($element, ...$vars);
+
+        if (preg_match('/^\<meta (name|property)\="([\w\-:]+)"/', $element, $elementMatches) === 1) {
+            $elementStart = $elementMatches[0];
+
+            $matched = preg_grep('/^'.preg_quote($elementStart, '/').'/', $this->elements);
+            if ($matched !== false && count($matched) >= 1) {
+                $matchedKey = array_keys($matched)[0];
+
+                // Replace exist <meta> element
+                $this->elements[$matchedKey] = $element;
+            } else {
+                $this->elements[] = $element;
+            }
+        } else {
+            $this->elements[] = $element;
+        }
 
         return $this;
     }
@@ -38,6 +54,15 @@ class HeadManager
     public function image(string $image)
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function ogMeta(array $meta = [])
+    {
+        $this->ogTitle($meta['title'] ?? null);
+        $this->ogDescription($meta['description'] ?? null);
+        $this->ogImage($meta['image'] ?? null);
 
         return $this;
     }
@@ -123,6 +148,65 @@ class HeadManager
         return $this;
     }
 
+    public function twitterCard(string $type = 'summary')
+    {
+        $this->tag('<meta name="twitter:card" content="%s" inertia>', e($type));
+
+        return $this;
+    }
+
+    public function twitterSummaryCard(array $meta = [])
+    {
+        $this->twitterCard('summary');
+        $this->twitterTitle($meta['title'] ?? null);
+        $this->twitterDescription($meta['description'] ?? null);
+        $this->twitterImage($meta['image'] ?? null, $meta['image_alt'] ?? null);
+        $this->twitterSite($meta['site'] ?? null, $meta['site_id'] ?? null);
+
+        return $this;
+    }
+
+    public function twitterLargeCard(array $meta = [])
+    {
+        $this->twitterCard('summary_large_image');
+        $this->twitterSite($meta['site'] ?? null, $meta['site_id'] ?? null);
+        $this->twitterCreator($meta['creator'] ?? null, $meta['creator_id'] ?? null);
+        $this->twitterTitle($meta['title'] ?? null);
+        $this->twitterDescription($meta['description'] ?? null);
+        $this->twitterImage($meta['image'] ?? null, $meta['image_alt'] ?? null);
+
+        return $this;
+    }
+
+    public function twitterAppCard(array $meta = [])
+    {
+        $this->twitterCard('app');
+        $this->twitterSite($meta['site'] ?? null, $meta['site_id'] ?? null);
+        $this->twitterDescription($meta['description'] ?? null);
+
+        if (isset($meta['country'])) {
+            $this->twitterAppCountry($meta['country']);
+        }
+
+        return $this;
+    }
+
+    public function twitterPlayerCard(array $meta = [])
+    {
+        $this->twitterCard('player');
+        $this->twitterSite($meta['site'] ?? null, $meta['site_id'] ?? null);
+        $this->twitterTitle($meta['title'] ?? null);
+        $this->twitterDescription($meta['description'] ?? null);
+        $this->twitterPlayer([
+            'url' => $meta['url'],
+            'width' => $meta['width'],
+            'height' => $meta['height'],
+        ]);
+        $this->twitterImage($meta['image'] ?? null, $meta['image_alt'] ?? null);
+
+        return $this;
+    }
+
     public function twitterTitle(string $title = null)
     {
         if ($title = $title ?? $this->title) {
@@ -154,41 +238,6 @@ class HeadManager
         return $this;
     }
 
-    public function twitterCard(string $card = 'summary')
-    {
-        $this->tag('<meta name="twitter:card" content="%s" inertia>', e($card));
-
-        return $this;
-    }
-
-    public function twitterSummaryCard()
-    {
-        $this->twitterCard('summary');
-
-        return $this;
-    }
-
-    public function twitterLargeCard()
-    {
-        $this->twitterCard('summary_large_image');
-
-        return $this;
-    }
-
-    public function twitterAppCard()
-    {
-        $this->twitterCard('app');
-
-        return $this;
-    }
-
-    public function twitterPlayerCard()
-    {
-        $this->twitterCard('player');
-
-        return $this;
-    }
-
     public function twitterSite(string $username = null, string $id = null)
     {
         if ($username = $username ?? config('inertia-ssr-head.twitter_site')) {
@@ -202,7 +251,7 @@ class HeadManager
         return $this;
     }
 
-    public function twitterCreator(string $username, string $id = null)
+    public function twitterCreator(string $username = null, string $id = null)
     {
         if ($username = $username ?? config('inertia-ssr-head.twitter_creator')) {
             $this->tag('<meta name="twitter:creator" content="%s" inertia>', e($username));
@@ -215,20 +264,7 @@ class HeadManager
         return $this;
     }
 
-    public function twitterPlayer(array $player)
-    {
-        $this->tag('<meta name="twitter:player" content="%s" inertia>', e($player['url']));
-
-        foreach (['width', 'height'] as $attr) {
-            if (isset($player[$attr])) {
-                $this->tag('<meta name="twitter:player:%s" content="%s" inertia>', $attr, e($player[$attr]));
-            }
-        }
-
-        return $this;
-    }
-
-    public function twitterAppForIphone(array $app)
+    public function twitterAppForIphone(array $app = [])
     {
         $appName = $app['name'] ?? config('inertia-ssr-head.twitter_app_name');
         $appId = $app['id'] ?? config('inertia-ssr-head.twitter_app_ios_id');
@@ -241,7 +277,7 @@ class HeadManager
         return $this;
     }
 
-    public function twitterAppForIpad(array $app)
+    public function twitterAppForIpad(array $app = [])
     {
         $appName = $app['name'] ?? config('inertia-ssr-head.twitter_app_name');
         $appId = $app['id'] ?? config('inertia-ssr-head.twitter_app_ios_id');
@@ -254,7 +290,7 @@ class HeadManager
         return $this;
     }
 
-    public function twitterAppForGoogleplay(array $app)
+    public function twitterAppForGoogleplay(array $app = [])
     {
         $appName = $app['name'] ?? config('inertia-ssr-head.twitter_app_name');
         $appId = $app['id'] ?? config('inertia-ssr-head.twitter_app_googleplay_id');
@@ -270,6 +306,19 @@ class HeadManager
     public function twitterAppCountry(string $country)
     {
         $this->tag('<meta name="twitter:app:country" content="%s" inertia>', e($country));
+
+        return $this;
+    }
+
+    public function twitterPlayer(array $player)
+    {
+        $this->tag('<meta name="twitter:player" content="%s" inertia>', e($player['url']));
+
+        foreach (['width', 'height', 'stream'] as $attr) {
+            if (isset($player[$attr])) {
+                $this->tag('<meta name="twitter:player:%s" content="%s" inertia>', $attr, e($player[$attr]));
+            }
+        }
 
         return $this;
     }

@@ -19,11 +19,12 @@ class InertiaSSRHeadServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->registerInertiaResponseMixin();
+        $this->registerInertiaResponseMacros();
         $this->registerBladeDirectives();
+        $this->publishingFiles();
     }
 
-    protected function registerInertiaResponseMixin()
+    protected function registerInertiaResponseMacros()
     {
         Response::mixin(new ResponseMacros);
     }
@@ -33,5 +34,12 @@ class InertiaSSRHeadServiceProvider extends ServiceProvider
         Blade::directive('inertiaHead', function () {
             return "<?php echo app(\Inertia\SSRHead\HeadManager::class)->format(4)->render().\"\\n\"; ?>";
         });
+    }
+
+    protected function publishingFiles()
+    {
+        $this->publishes([
+            __DIR__.'/../config/inertia-ssr-head.php' => config_path('inertia-ssr-head.php')
+        ], 'inertia-ssr-head-config');
     }
 }

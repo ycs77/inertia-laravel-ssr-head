@@ -20,12 +20,6 @@ Install the package via composer:
 composer require ycs77/inertia-laravel-ssr-head
 ```
 
-Publish the config file with:
-
-```bash
-php artisan vendor:publish --provider="Inertia\SSRHead\InertiaSSRHeadServiceProvider" --tag="inertia-laravel-ssr-head-config"
-```
-
 Replace `<title>` to `@inertiaHead` directive:
 
 ```diff
@@ -86,6 +80,40 @@ Or use in Vue 3:
  })
 ```
 
+## Config
+
+Publish the config file with:
+
+```bash
+php artisan vendor:publish --provider="Inertia\SSRHead\InertiaSSRHeadServiceProvider" --tag="inertia-ssr-head-config"
+```
+
+You can setting the twitter site username or many in config `inertia-ssr-head.php`:
+
+```php
+<?php
+
+return [
+
+    'fb_app_id' => env('FB_APP_ID'),
+
+    'twitter_site' => env('TWITTER_SITE'),
+    'twitter_site_id' => env('TWITTER_SITE_ID'),
+
+    'twitter_creator' => env('TWITTER_CREATOR'),
+    'twitter_creator_id' => env('TWITTER_CREATOR_ID'),
+
+    'twitter_app_name' => env('TWITTER_APP_NAME', env('APP_NAME')),
+
+    'twitter_app_ios_id' => env('TWITTER_APP_IOS_ID'),
+    'twitter_app_ios_url' => env('TWITTER_APP_IOS_URL'),
+
+    'twitter_app_googleplay_id' => env('TWITTER_APP_GOOGLEPLAY_ID'),
+    'twitter_app_googleplay_url' => env('TWITTER_APP_GOOGLEPLAY_URL'),
+
+];
+```
+
 ## Usage
 
 Setting page title and description:
@@ -123,7 +151,9 @@ export default {
 
 Also, if you are using this package, it is not recommended to use Inertia &lt;Head&gt;.
 
-Render Open Graph and Twitter Card tags, have `title`, `description`, `ogMeta()` is generate the Open Graph meta `og:title`, `og:description`, `og:image`:
+### Open Graph meta tags
+
+Render Open Graph tags, have `title`, `description`, `ogMeta()` is generate the Open Graph meta `og:title`, `og:description`, `og:image`:
 
 ```php
 return Inertia::render('Home')
@@ -131,6 +161,15 @@ return Inertia::render('Home')
     ->description('Hello, This is my homepage~')
     ->image('https://example.com/image')
     ->ogMeta();
+
+// Same...
+return Inertia::render('Home')
+    ->title('My homepage')
+    ->description('Hello, This is my homepage~')
+    ->image('https://example.com/image')
+    ->ogTitle('My homepage')
+    ->ogDescription('Hello, This is my homepage~')
+    ->ogImage('https://example.com/image');
 ```
 
 Or if you want only render `og:title`, `og:description` meta tags:
@@ -142,14 +181,78 @@ return Inertia::render('Home')
     ->ogDescription('Custom og description...');
 ```
 
-And same as `twitterMeta()`:
+### Twitter Card meta tags
+
+Add Twitter Summary card meta tags with `twitterSummaryCard()`:
 
 ```php
 return Inertia::render('Home')
     ->title('My homepage')
     ->description('Hello, This is my homepage~')
     ->image('https://example.com/image')
-    ->twitterMeta();
+    ->twitterSummaryCard();
+```
+
+Add Summary large image card meta tags with `twitterLargeCard()`:
+
+```php
+return Inertia::render('Home')
+    ->title('My homepage')
+    ->description('Hello, This is my homepage~')
+    ->image('https://example.com/image')
+    ->twitterLargeCard()
+    ->twitterCreator('@creator_twitter_name');
+```
+
+Add App card meta tags with `twitterAppCard()`:
+
+```php
+return Inertia::render('AppHome')
+    ->title('App title')
+    ->description('App description...')
+    ->twitterAppCard()
+    ->twitterAppForIphone([
+        'name' => 'Your APP',
+        'id' => '123456789',
+        'url' => 'https://example.com/iphone_app',
+    ])
+    ->twitterAppForIpad([
+        'name' => 'Your APP',
+        'id' => '123456789',
+        'url' => 'https://example.com/ipad_app',
+    ])
+    ->twitterAppForGoogleplay([
+        'name' => 'Your APP',
+        'id' => '123456789',
+        'url' => 'https://example.com/googleplay_app',
+    ]);
+```
+
+Add Player card meta tags with `twitterPlayerCard()`:
+
+```php
+return Inertia::render('AppHome')
+    ->title('Video title')
+    ->description('Video description...')
+    ->image('https://example.com/video_thumbnail')
+    ->twitterPlayerCard([
+        'url' => 'https://example.com/video',
+        'width' => 640,
+        'height' => 360,
+    ]);
+```
+
+## Custom
+
+### Add custom tag
+
+Use `head()` method will add the custom HTML tag:
+
+```php
+return Inertia::render('AppHome')
+    ->title('Video title')
+    ->head('<meta name="my-meta" content="some data...">')
+    ->head('<meta name="my-meta" content="%s">', e('some data...')) // escape data
 ```
 
 ## Testing

@@ -5,12 +5,11 @@ use Inertia\SSRHead\HeadManager;
 test('can add tag', function () {
     $head = new HeadManager();
 
-    $head->tag('<title inertia>Page title</title>');
+    $head->tag('<title inertia>%s</title>', e('Page title'));
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(1);
-    expect($elements[0])->toBe('<title inertia>Page title</title>');
+    expect($elements)->toBe(['<title inertia>Page title</title>']);
 });
 
 test('can add title tag', function () {
@@ -20,8 +19,7 @@ test('can add title tag', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(1);
-    expect($elements[0])->toBe('<title inertia>Page title</title>');
+    expect($elements)->toBe(['<title inertia>Page title</title>']);
 });
 
 test('can add description and image tag', function () {
@@ -33,8 +31,19 @@ test('can add description and image tag', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(1);
-    expect($elements[0])->toBe('<meta name="description" content="Page description..." inertia>');
+    expect($elements)->toBe(['<meta name="description" content="Page description..." inertia>']);
+});
+
+test('unique meta tag', function () {
+    $head = new HeadManager();
+
+    $head
+        ->description('First description...')
+        ->description('Second description...');
+
+    $elements = $head->getElements();
+
+    expect($elements)->toBe(['<meta name="description" content="Second description..." inertia>']);
 });
 
 test('can add title and og:title', function () {
@@ -46,9 +55,10 @@ test('can add title and og:title', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(2);
-    expect($elements[0])->toBe('<title inertia>Page title</title>');
-    expect($elements[1])->toBe('<meta property="og:title" content="Page title" inertia>');
+    expect($elements)->toBe([
+        '<title inertia>Page title</title>',
+        '<meta property="og:title" content="Page title" inertia>',
+    ]);
 });
 
 test('can add title and custom og:title', function () {
@@ -60,9 +70,10 @@ test('can add title and custom og:title', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(2);
-    expect($elements[0])->toBe('<title inertia>Page title</title>');
-    expect($elements[1])->toBe('<meta property="og:title" content="Custom og title" inertia>');
+    expect($elements)->toBe([
+        '<title inertia>Page title</title>',
+        '<meta property="og:title" content="Custom og title" inertia>',
+    ]);
 });
 
 test('can add all base Open Graph tags', function () {
@@ -81,15 +92,16 @@ test('can add all base Open Graph tags', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(8);
-    expect($elements[0])->toBe('<title inertia>Page title</title>');
-    expect($elements[1])->toBe('<meta name="description" content="Page description..." inertia>');
-    expect($elements[2])->toBe('<meta property="og:title" content="Page title" inertia>');
-    expect($elements[3])->toBe('<meta property="og:description" content="Page description..." inertia>');
-    expect($elements[4])->toBe('<meta property="og:image" content="https://example.com/image" inertia>');
-    expect($elements[5])->toBe('<meta name="twitter:title" content="Page title" inertia>');
-    expect($elements[6])->toBe('<meta name="twitter:description" content="Page description..." inertia>');
-    expect($elements[7])->toBe('<meta name="twitter:image" content="https://example.com/image" inertia>');
+    expect($elements)->toBe([
+        '<title inertia>Page title</title>',
+        '<meta name="description" content="Page description..." inertia>',
+        '<meta property="og:title" content="Page title" inertia>',
+        '<meta property="og:description" content="Page description..." inertia>',
+        '<meta property="og:image" content="https://example.com/image" inertia>',
+        '<meta name="twitter:title" content="Page title" inertia>',
+        '<meta name="twitter:description" content="Page description..." inertia>',
+        '<meta name="twitter:image" content="https://example.com/image" inertia>',
+    ]);
 });
 
 test('can render mitiple tags with oneline', function () {
@@ -139,8 +151,7 @@ test('can render og:url tag', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(1);
-    expect($elements[0])->toBe('<meta property="og:url" content="http://localhost" inertia>');
+    expect($elements)->toBe(['<meta property="og:url" content="http://localhost" inertia>']);
 });
 
 test('can render mitiple og:image tags', function () {
@@ -156,12 +167,13 @@ test('can render mitiple og:image tags', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(5);
-    expect($elements[0])->toBe('<meta property="og:image:url" content="https://example.com/image" inertia>');
-    expect($elements[1])->toBe('<meta property="og:image:secure_url" content="https://example.com/image" inertia>');
-    expect($elements[2])->toBe('<meta property="og:image:type" content="image/jpeg" inertia>');
-    expect($elements[3])->toBe('<meta property="og:image:width" content="640" inertia>');
-    expect($elements[4])->toBe('<meta property="og:image:height" content="360" inertia>');
+    expect($elements)->toBe([
+        '<meta property="og:image:url" content="https://example.com/image" inertia>',
+        '<meta property="og:image:secure_url" content="https://example.com/image" inertia>',
+        '<meta property="og:image:type" content="image/jpeg" inertia>',
+        '<meta property="og:image:width" content="640" inertia>',
+        '<meta property="og:image:height" content="360" inertia>',
+    ]);
 });
 
 test('can render mitiple og:video tags', function () {
@@ -178,13 +190,14 @@ test('can render mitiple og:video tags', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(6);
-    expect($elements[0])->toBe('<meta property="og:video:url" content="https://example.com/video" inertia>');
-    expect($elements[1])->toBe('<meta property="og:video:secure_url" content="https://example.com/video" inertia>');
-    expect($elements[2])->toBe('<meta property="og:video:type" content="video/mp4" inertia>');
-    expect($elements[3])->toBe('<meta property="og:video:width" content="640" inertia>');
-    expect($elements[4])->toBe('<meta property="og:video:height" content="360" inertia>');
-    expect($elements[5])->toBe('<meta property="og:image" content="https://example.com/image" inertia>');
+    expect($elements)->toBe([
+        '<meta property="og:video:url" content="https://example.com/video" inertia>',
+        '<meta property="og:video:secure_url" content="https://example.com/video" inertia>',
+        '<meta property="og:video:type" content="video/mp4" inertia>',
+        '<meta property="og:video:width" content="640" inertia>',
+        '<meta property="og:video:height" content="360" inertia>',
+        '<meta property="og:image" content="https://example.com/image" inertia>',
+    ]);
 });
 
 test('can render og:type tag', function () {
@@ -194,8 +207,7 @@ test('can render og:type tag', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(1);
-    expect($elements[0])->toBe('<meta property="og:type" content="article" inertia>');
+    expect($elements)->toBe(['<meta property="og:type" content="article" inertia>']);
 });
 
 test('can render og:locale tag', function () {
@@ -205,8 +217,7 @@ test('can render og:locale tag', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(1);
-    expect($elements[0])->toBe('<meta property="og:locale" content="zh_TW" inertia>');
+    expect($elements)->toBe(['<meta property="og:locale" content="zh_TW" inertia>']);
 });
 
 test('can render fb:app_id tag', function () {
@@ -216,8 +227,7 @@ test('can render fb:app_id tag', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(1);
-    expect($elements[0])->toBe('<meta property="fb:app_id" content="123456789" inertia>');
+    expect($elements)->toBe(['<meta property="fb:app_id" content="123456789" inertia>']);
 });
 
 test('can render twitter card tag', function () {
@@ -227,8 +237,7 @@ test('can render twitter card tag', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(1);
-    expect($elements[0])->toBe('<meta name="twitter:card" content="summary" inertia>');
+    expect($elements)->toBe(['<meta name="twitter:card" content="summary" inertia>']);
 });
 
 test('can render twitter site tags', function () {
@@ -238,9 +247,10 @@ test('can render twitter site tags', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(2);
-    expect($elements[0])->toBe('<meta name="twitter:site" content="@website_twitter_name" inertia>');
-    expect($elements[1])->toBe('<meta name="twitter:site:id" content="123456789" inertia>');
+    expect($elements)->toBe([
+        '<meta name="twitter:site" content="@website_twitter_name" inertia>',
+        '<meta name="twitter:site:id" content="123456789" inertia>',
+    ]);
 });
 
 test('can render twitter creator tags', function () {
@@ -250,26 +260,28 @@ test('can render twitter creator tags', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(2);
-    expect($elements[0])->toBe('<meta name="twitter:creator" content="@your_twitter_name" inertia>');
-    expect($elements[1])->toBe('<meta name="twitter:creator:id" content="123456789" inertia>');
+    expect($elements)->toBe([
+        '<meta name="twitter:creator" content="@your_twitter_name" inertia>',
+        '<meta name="twitter:creator:id" content="123456789" inertia>',
+    ]);
 });
 
 test('can render twitter player iframe tags', function () {
     $head = new HeadManager();
 
     $head->twitterPlayer([
-        'url' => 'https://example.com/player',
+        'url' => 'https://example.com/video',
         'width' => 640,
         'height' => 360,
     ]);
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(3);
-    expect($elements[0])->toBe('<meta name="twitter:player" content="https://example.com/player" inertia>');
-    expect($elements[1])->toBe('<meta name="twitter:player:width" content="640" inertia>');
-    expect($elements[2])->toBe('<meta name="twitter:player:height" content="360" inertia>');
+    expect($elements)->toBe([
+        '<meta name="twitter:player" content="https://example.com/video" inertia>',
+        '<meta name="twitter:player:width" content="640" inertia>',
+        '<meta name="twitter:player:height" content="360" inertia>',
+    ]);
 });
 
 test('can render twitter app tags', function () {
@@ -293,79 +305,95 @@ test('can render twitter app tags', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(9);
-    expect($elements[0])->toBe('<meta name="twitter:app:name:iphone" content="Your APP" inertia>');
-    expect($elements[1])->toBe('<meta name="twitter:app:id:iphone" content="123456789" inertia>');
-    expect($elements[2])->toBe('<meta name="twitter:app:url:iphone" content="https://example.com/iphone_app" inertia>');
-    expect($elements[3])->toBe('<meta name="twitter:app:name:ipad" content="Your APP" inertia>');
-    expect($elements[4])->toBe('<meta name="twitter:app:id:ipad" content="123456789" inertia>');
-    expect($elements[5])->toBe('<meta name="twitter:app:url:ipad" content="https://example.com/ipad_app" inertia>');
-    expect($elements[6])->toBe('<meta name="twitter:app:name:googleplay" content="Your APP" inertia>');
-    expect($elements[7])->toBe('<meta name="twitter:app:id:googleplay" content="123456789" inertia>');
-    expect($elements[8])->toBe('<meta name="twitter:app:url:googleplay" content="https://example.com/googleplay_app" inertia>');
+    expect($elements)->toBe([
+        '<meta name="twitter:app:name:iphone" content="Your APP" inertia>',
+        '<meta name="twitter:app:id:iphone" content="123456789" inertia>',
+        '<meta name="twitter:app:url:iphone" content="https://example.com/iphone_app" inertia>',
+        '<meta name="twitter:app:name:ipad" content="Your APP" inertia>',
+        '<meta name="twitter:app:id:ipad" content="123456789" inertia>',
+        '<meta name="twitter:app:url:ipad" content="https://example.com/ipad_app" inertia>',
+        '<meta name="twitter:app:name:googleplay" content="Your APP" inertia>',
+        '<meta name="twitter:app:id:googleplay" content="123456789" inertia>',
+        '<meta name="twitter:app:url:googleplay" content="https://example.com/googleplay_app" inertia>',
+    ]);
 });
 
-test('can render twitter summary card', function () {
+test('can render twitter summary card with params data', function () {
+    $head = new HeadManager();
+
+    $head->twitterSummaryCard([
+        'title' => 'Page title',
+        'description' => 'Page description...',
+        'image' => 'https://example.com/image',
+        'site' => '@website_twitter_name',
+    ]);
+
+    $elements = $head->getElements();
+
+    expect($elements)->toBe([
+        '<meta name="twitter:card" content="summary" inertia>',
+        '<meta name="twitter:title" content="Page title" inertia>',
+        '<meta name="twitter:description" content="Page description..." inertia>',
+        '<meta name="twitter:image" content="https://example.com/image" inertia>',
+        '<meta name="twitter:site" content="@website_twitter_name" inertia>',
+    ]);
+});
+
+test('can render twitter summary card with config data', function () {
+    config()->set(['inertia-ssr-head.twitter_site' => '@website_twitter_name']);
+
     $head = new HeadManager();
 
     $head
         ->title('Page title')
         ->description('Page description...')
         ->image('https://example.com/image')
-        ->twitterSummaryCard()
-        ->twitterTitle()
-        ->twitterDescription()
-        ->twitterImage()
-        ->twitterSite('@website_twitter_name');
+        ->twitterSummaryCard();
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(7);
-    expect($elements[0])->toBe('<title inertia>Page title</title>');
-    expect($elements[1])->toBe('<meta name="description" content="Page description..." inertia>');
-    expect($elements[2])->toBe('<meta name="twitter:card" content="summary" inertia>');
-    expect($elements[3])->toBe('<meta name="twitter:title" content="Page title" inertia>');
-    expect($elements[4])->toBe('<meta name="twitter:description" content="Page description..." inertia>');
-    expect($elements[5])->toBe('<meta name="twitter:image" content="https://example.com/image" inertia>');
-    expect($elements[6])->toBe('<meta name="twitter:site" content="@website_twitter_name" inertia>');
+    expect($elements)->toBe([
+        '<title inertia>Page title</title>',
+        '<meta name="description" content="Page description..." inertia>',
+        '<meta name="twitter:card" content="summary" inertia>',
+        '<meta name="twitter:title" content="Page title" inertia>',
+        '<meta name="twitter:description" content="Page description..." inertia>',
+        '<meta name="twitter:image" content="https://example.com/image" inertia>',
+        '<meta name="twitter:site" content="@website_twitter_name" inertia>',
+    ]);
 });
 
 test('can render twitter summary large image card', function () {
     $head = new HeadManager();
 
-    $head
-        ->title('Page title')
-        ->description('Page description...')
-        ->image('https://example.com/image')
-        ->twitterLargeCard()
-        ->twitterSite('@website_twitter_name')
-        ->twitterCreator('@creator_twitter_name')
-        ->twitterTitle()
-        ->twitterDescription()
-        ->twitterImage();
+    $head->twitterLargeCard([
+        'site' => '@website_twitter_name',
+        'creator' => '@creator_twitter_name',
+        'title' => 'Page title',
+        'description' => 'Page description...',
+        'image' => 'https://example.com/image',
+    ]);
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(8);
-    expect($elements[0])->toBe('<title inertia>Page title</title>');
-    expect($elements[1])->toBe('<meta name="description" content="Page description..." inertia>');
-    expect($elements[2])->toBe('<meta name="twitter:card" content="summary_large_image" inertia>');
-    expect($elements[3])->toBe('<meta name="twitter:site" content="@website_twitter_name" inertia>');
-    expect($elements[4])->toBe('<meta name="twitter:creator" content="@creator_twitter_name" inertia>');
-    expect($elements[5])->toBe('<meta name="twitter:title" content="Page title" inertia>');
-    expect($elements[6])->toBe('<meta name="twitter:description" content="Page description..." inertia>');
-    expect($elements[7])->toBe('<meta name="twitter:image" content="https://example.com/image" inertia>');
+    expect($elements)->toBe([
+        '<meta name="twitter:card" content="summary_large_image" inertia>',
+        '<meta name="twitter:site" content="@website_twitter_name" inertia>',
+        '<meta name="twitter:creator" content="@creator_twitter_name" inertia>',
+        '<meta name="twitter:title" content="Page title" inertia>',
+        '<meta name="twitter:description" content="Page description..." inertia>',
+        '<meta name="twitter:image" content="https://example.com/image" inertia>',
+    ]);
 });
 
-test('can render twitter player card', function () {
+test('can render twitter app card', function () {
     $head = new HeadManager();
 
     $head
-        ->title('App title')
-        ->description('App description...')
-        ->twitterAppCard()
-        ->twitterSite('@website_twitter_name')
-        ->twitterDescription()
+        ->twitterAppCard([
+            'site' => '@website_twitter_name',
+            'description' => 'App description...',
+        ])
         ->twitterAppCountry('TW')
         ->twitterAppForIphone([
             'name' => 'Your APP',
@@ -385,20 +413,48 @@ test('can render twitter player card', function () {
 
     $elements = $head->getElements();
 
-    expect($elements)->toHaveCount(15);
-    expect($elements[0])->toBe('<title inertia>App title</title>');
-    expect($elements[1])->toBe('<meta name="description" content="App description..." inertia>');
-    expect($elements[2])->toBe('<meta name="twitter:card" content="app" inertia>');
-    expect($elements[3])->toBe('<meta name="twitter:site" content="@website_twitter_name" inertia>');
-    expect($elements[4])->toBe('<meta name="twitter:description" content="App description..." inertia>');
-    expect($elements[5])->toBe('<meta name="twitter:app:country" content="TW" inertia>');
-    expect($elements[6])->toBe('<meta name="twitter:app:name:iphone" content="Your APP" inertia>');
-    expect($elements[7])->toBe('<meta name="twitter:app:id:iphone" content="123456789" inertia>');
-    expect($elements[8])->toBe('<meta name="twitter:app:url:iphone" content="https://example.com/iphone_app" inertia>');
-    expect($elements[9])->toBe('<meta name="twitter:app:name:ipad" content="Your APP" inertia>');
-    expect($elements[10])->toBe('<meta name="twitter:app:id:ipad" content="123456789" inertia>');
-    expect($elements[11])->toBe('<meta name="twitter:app:url:ipad" content="https://example.com/ipad_app" inertia>');
-    expect($elements[12])->toBe('<meta name="twitter:app:name:googleplay" content="Your APP" inertia>');
-    expect($elements[13])->toBe('<meta name="twitter:app:id:googleplay" content="123456789" inertia>');
-    expect($elements[14])->toBe('<meta name="twitter:app:url:googleplay" content="https://example.com/googleplay_app" inertia>');
+    expect($elements)->toBe([
+        '<meta name="twitter:card" content="app" inertia>',
+        '<meta name="twitter:site" content="@website_twitter_name" inertia>',
+        '<meta name="twitter:description" content="App description..." inertia>',
+        '<meta name="twitter:app:country" content="TW" inertia>',
+        '<meta name="twitter:app:name:iphone" content="Your APP" inertia>',
+        '<meta name="twitter:app:id:iphone" content="123456789" inertia>',
+        '<meta name="twitter:app:url:iphone" content="https://example.com/iphone_app" inertia>',
+        '<meta name="twitter:app:name:ipad" content="Your APP" inertia>',
+        '<meta name="twitter:app:id:ipad" content="123456789" inertia>',
+        '<meta name="twitter:app:url:ipad" content="https://example.com/ipad_app" inertia>',
+        '<meta name="twitter:app:name:googleplay" content="Your APP" inertia>',
+        '<meta name="twitter:app:id:googleplay" content="123456789" inertia>',
+        '<meta name="twitter:app:url:googleplay" content="https://example.com/googleplay_app" inertia>',
+    ]);
+});
+
+test('can render twitter player card', function () {
+    config()->set(['inertia-ssr-head.twitter_site' => '@website_twitter_name']);
+
+    $head = new HeadManager();
+
+    $head->twitterPlayerCard([
+        'title' => 'Video title',
+        'site' => '@website_twitter_name',
+        'description' => 'Video description...',
+        'url' => 'https://example.com/video',
+        'width' => 640,
+        'height' => 360,
+        'image' => 'https://example.com/video_thumbnail',
+    ]);
+
+    $elements = $head->getElements();
+
+    expect($elements)->toBe([
+        '<meta name="twitter:card" content="player" inertia>',
+        '<meta name="twitter:site" content="@website_twitter_name" inertia>',
+        '<meta name="twitter:title" content="Video title" inertia>',
+        '<meta name="twitter:description" content="Video description..." inertia>',
+        '<meta name="twitter:player" content="https://example.com/video" inertia>',
+        '<meta name="twitter:player:width" content="640" inertia>',
+        '<meta name="twitter:player:height" content="360" inertia>',
+        '<meta name="twitter:image" content="https://example.com/video_thumbnail" inertia>',
+    ]);
 });
