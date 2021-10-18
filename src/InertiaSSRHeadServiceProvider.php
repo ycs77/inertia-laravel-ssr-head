@@ -39,7 +39,7 @@ class InertiaSSRHeadServiceProvider extends ServiceProvider
     protected function publishingFiles()
     {
         $this->publishes([
-            __DIR__.'/../config/inertia-ssr-head.php' => config_path('inertia-ssr-head.php')
+            __DIR__.'/../config/inertia-ssr-head.php' => config_path('inertia-ssr-head.php'),
         ], 'inertia-ssr-head-config');
     }
 }
