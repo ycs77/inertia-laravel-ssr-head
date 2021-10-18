@@ -48,7 +48,7 @@ npm install inertia-title
 yarn add inertia-title
 ```
 
-The package just auto update client &lt;title&gt; tag.
+The package just auto update client `<title>` tag.
 
 Add plugin for Vue 2 in `app.js`:
 
@@ -124,7 +124,7 @@ return Inertia::render('Home')
     ->description('Hello, This is my homepage~');
 ```
 
-Rendered this HTML tags:
+Then will be rendered to this HTML tags:
 
 ```html
 <head>
@@ -133,7 +133,7 @@ Rendered this HTML tags:
 </head>
 ```
 
-The head tags just render with server-side on first visit page, client only update &lt;title&gt;, no update other meta tags.
+The head tags just render with server-side on first visit page, client only update `<title>`, no update other meta tags.
 
 The title will injection to `$page`, you can get the page title with using prop `title` or `$page.props.title` in client Vue 2/3:
 
@@ -149,7 +149,7 @@ export default {
 }
 ```
 
-Also, if you are using this package, it is not recommended to use Inertia &lt;Head&gt;.
+Also, if you are using this package, it is not recommended to use Inertia `<Head>`.
 
 ### Title template
 
@@ -311,9 +311,8 @@ Please review [our security policy](.github/SECURITY.md) on how to report securi
 
 ## Credits
 
-The HeadManager is take from [Inertia.js](https://inertiajs.com/), thanks the awesome package for [Jonathan Reinink](https://github.com/reinink).
-
 - [Lucas Yang](https://github.com/ycs77)
+- [Jonathan Reinink](https://github.com/reinink), creator for [Inertia.js](https://inertiajs.com/)
 - [All Contributors](https://github.com/ycs77/graphs/contributors)
 
 ## License
