@@ -30,7 +30,6 @@ class InertiaSSRHeadServiceProvider extends ServiceProvider
     protected function registerMacros()
     {
         Response::mixin(new ResponseMacros);
-
     }
 
     protected function registerBladeDirectives()

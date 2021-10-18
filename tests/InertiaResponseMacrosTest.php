@@ -25,7 +25,9 @@ test('can add <title> and description metadata with inertia response', function 
 });
 
 test('using Inertia::titleTemplate()', function () {
-    Inertia::titleTemplate(fn ($title) => $title ? "$title - My App" : 'My App');
+    Inertia::titleTemplate(function ($title) {
+        return $title ? "$title - My App" : 'My App';
+    });
 
     $response = Inertia::render('TestPage');
     $response = toTestResponse($response);
