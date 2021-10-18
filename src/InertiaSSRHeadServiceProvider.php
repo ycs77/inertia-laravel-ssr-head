@@ -10,11 +10,13 @@ class InertiaSSRHeadServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->singleton(HeadManager::class, function ($app) {
-            return new HeadManager();
-        });
-
         $this->mergeConfigFrom(__DIR__.'/../config/inertia-ssr-head.php', 'inertia-ssr-head');
+
+        $this->app->singleton(HeadManager::class, function () {
+            return tap(new HeadManager(), function (HeadManager $manager) {
+                $manager->titleTemplate(config('inertia-ssr-head.title_template'));
+            });
+        });
     }
 
     public function boot()

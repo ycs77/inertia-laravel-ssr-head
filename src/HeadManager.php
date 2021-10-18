@@ -7,6 +7,7 @@ class HeadManager
     protected $elements = [];
 
     protected $title;
+    protected $titleTemplate = null;
     protected $description;
     protected $image;
 
@@ -35,10 +36,23 @@ class HeadManager
         return $this;
     }
 
-    public function title(string $title)
+    public function title(string $title, $template = null)
     {
+        if ($template !== false && ($template || $this->titleTemplate)) {
+            $title = sprintf(
+                is_string($template) ? $template : $this->titleTemplate, $title
+            );
+        }
+
         $this->title = $title;
         $this->tag('<title inertia>%s</title>', e($title));
+
+        return $this;
+    }
+
+    public function titleTemplate(?string $template)
+    {
+        $this->titleTemplate = $template;
 
         return $this;
     }

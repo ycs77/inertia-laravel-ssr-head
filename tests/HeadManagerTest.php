@@ -22,6 +22,40 @@ test('can add title tag', function () {
     expect($elements)->toBe(['<title inertia>Page title</title>']);
 });
 
+test('can use title template with method', function () {
+    $head = new HeadManager();
+
+    $head
+        ->titleTemplate('%s - My website')
+        ->title('Page title');
+
+    $elements = $head->getElements();
+
+    expect($elements)->toBe(['<title inertia>Page title - My website</title>']);
+});
+
+test('can use title template with attribute', function () {
+    $head = new HeadManager();
+
+    $head->title('Page title', '%s - My website');
+
+    $elements = $head->getElements();
+
+    expect($elements)->toBe(['<title inertia>Page title - My website</title>']);
+});
+
+test('without title template', function () {
+    $head = new HeadManager();
+
+    $head
+        ->titleTemplate('%s - My website')
+        ->title('Page title', false);
+
+    $elements = $head->getElements();
+
+    expect($elements)->toBe(['<title inertia>Page title</title>']);
+});
+
 test('can add description and image tag', function () {
     $head = new HeadManager();
 
