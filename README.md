@@ -26,7 +26,7 @@ Publish the config file with:
 php artisan vendor:publish --provider="Inertia\SSRHead\InertiaSSRHeadServiceProvider" --tag="inertia-laravel-ssr-head-config"
 ```
 
-Replace &lt;title&gt; to `@inertiaHead` directive:
+Replace `<title>` to `@inertiaHead` directive:
 
 ```diff
  <!DOCTYPE html>
