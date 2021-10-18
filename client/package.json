@@ -1,6 +1,6 @@
 {
   "name": "inertia-title",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "description": "Simple auto update title plugin for Inertia.js client adapters",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
