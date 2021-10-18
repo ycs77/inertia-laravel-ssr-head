@@ -18,10 +18,10 @@ class ResponseMacros
         };
     }
 
-    public function tag()
+    public function head()
     {
-        return function ($element) {
-            $this->headManager()->tag($element);
+        return function ($html, ...$vars) {
+            $this->headManager()->tag($html, ...$vars);
 
             return $this;
         };
@@ -67,9 +67,18 @@ class ResponseMacros
         };
     }
 
+    public function ogUrl()
+    {
+        return function ($url = null) {
+            $this->headManager()->ogUrl($url);
+
+            return $this;
+        };
+    }
+
     public function ogTitle()
     {
-        return function ($title) {
+        return function ($title = null) {
             $this->headManager()->ogTitle($title);
 
             return $this;
@@ -78,7 +87,7 @@ class ResponseMacros
 
     public function ogDescription()
     {
-        return function ($description) {
+        return function ($description = null) {
             $this->headManager()->ogDescription($description);
 
             return $this;
@@ -87,8 +96,44 @@ class ResponseMacros
 
     public function ogImage()
     {
-        return function ($image) {
+        return function ($image = null) {
             $this->headManager()->ogImage($image);
+
+            return $this;
+        };
+    }
+
+    public function ogVideo()
+    {
+        return function ($video) {
+            $this->headManager()->ogVideo($video);
+
+            return $this;
+        };
+    }
+
+    public function ogType()
+    {
+        return function ($type = 'website') {
+            $this->headManager()->ogType($type);
+
+            return $this;
+        };
+    }
+
+    public function ogLocale()
+    {
+        return function ($locale) {
+            $this->headManager()->ogLocale($locale);
+
+            return $this;
+        };
+    }
+
+    public function fbAppID()
+    {
+        return function ($id = null) {
+            $this->headManager()->fbAppID($id);
 
             return $this;
         };
@@ -108,7 +153,7 @@ class ResponseMacros
 
     public function twitterTitle()
     {
-        return function ($title) {
+        return function ($title = null) {
             $this->headManager()->twitterTitle($title);
 
             return $this;
@@ -117,7 +162,7 @@ class ResponseMacros
 
     public function twitterDescription()
     {
-        return function ($description) {
+        return function ($description = null) {
             $this->headManager()->twitterDescription($description);
 
             return $this;
@@ -126,8 +171,116 @@ class ResponseMacros
 
     public function twitterImage()
     {
-        return function ($image) {
-            $this->headManager()->twitterImage($image);
+        return function ($image = null, string $alt = null) {
+            $this->headManager()->twitterImage($image, $alt);
+
+            return $this;
+        };
+    }
+
+    public function twitterCard()
+    {
+        return function ($card = 'summary') {
+            $this->headManager()->twitterCard($card);
+
+            return $this;
+        };
+    }
+
+    public function twitterSummaryCard()
+    {
+        return function () {
+            $this->headManager()->twitterSummaryCard();
+
+            return $this;
+        };
+    }
+
+    public function twitterLargeCard()
+    {
+        return function () {
+            $this->headManager()->twitterLargeCard();
+
+            return $this;
+        };
+    }
+
+    public function twitterAppCard()
+    {
+        return function () {
+            $this->headManager()->twitterAppCard();
+
+            return $this;
+        };
+    }
+
+    public function twitterPlayerCard()
+    {
+        return function () {
+            $this->headManager()->twitterPlayerCard();
+
+            return $this;
+        };
+    }
+
+    public function twitterSite()
+    {
+        return function ($username = null, $id = null) {
+            $this->headManager()->twitterSite($username, $id);
+
+            return $this;
+        };
+    }
+
+    public function twitterCreator()
+    {
+        return function ($username = null, $id = null) {
+            $this->headManager()->twitterCreator($username, $id);
+
+            return $this;
+        };
+    }
+
+    public function twitterPlayer()
+    {
+        return function ($player) {
+            $this->headManager()->twitterPlayer($player);
+
+            return $this;
+        };
+    }
+
+    public function twitterAppForIphone()
+    {
+        return function ($app) {
+            $this->headManager()->twitterAppForIphone($app);
+
+            return $this;
+        };
+    }
+
+    public function twitterAppForIpad()
+    {
+        return function ($app) {
+            $this->headManager()->twitterAppForIpad($app);
+
+            return $this;
+        };
+    }
+
+    public function twitterAppForGoogleplay()
+    {
+        return function ($app) {
+            $this->headManager()->twitterAppForGoogleplay($app);
+
+            return $this;
+        };
+    }
+
+    public function twitterAppCountry()
+    {
+        return function ($country) {
+            $this->headManager()->twitterAppCountry($country);
 
             return $this;
         };

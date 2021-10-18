@@ -1,7 +1,7 @@
 {
     "name": "ycs77/inertia-laravel-ssr-head",
     "description": "Simple SSR Head for Inertia Laravel",
-    "keywords": ["laravel", "inertia", "ssr", "seo", "head"],
+    "keywords": ["laravel", "inertia", "ssr", "seo", "head", "meta", "metatags", "opengraph", "open graph"],
     "homepage": "https://github.com/ycs77/inertia-laravel-ssr-head",
     "license": "MIT",
     "authors": [
