@@ -85,7 +85,7 @@ createInertiaApp({
 Publish the config file with:
 
 ```bash
-php artisan vendor:publish --provider="Inertia\SSRHead\InertiaSSRHeadServiceProvider" --tag="inertia-ssr-head-config"
+php artisan vendor:publish --tag="inertia-ssr-head-config"
 ```
 
 You can setting the twitter site username or many in config `inertia-ssr-head.php`:
