@@ -20,13 +20,25 @@ class HeadManager
     /** @var string */
     protected $image;
 
+    protected $showInertiaAttribute = false;
+
     protected $space = 0;
 
     public function tag(string $element, ...$vars)
     {
         $element = sprintf($element, ...$vars);
 
-        if (preg_match('/^(\<meta (name|property)\="([\w\-:]+)"|\<title)/', $element, $elementMatches) === 1) {
+        // inject "inertia" attribute
+        if ($this->showInertiaAttribute) {
+            $element = preg_replace(
+                '/^(\<([A-Za-z]+)(?: [A-Za-z]+(?:\=(\'|\")[^\'\"]*\3)?)*)( ?\/?\>(?:[^<>]*\<\/\2\>)?)$/',
+                '$1 inertia$4',
+                $element
+            );
+        }
+
+        // check element is exists
+        if (preg_match('/^(\<meta (name|property)\="([\w\-:]+)"|\<title)/', $element, $elementMatches)) {
             $elementStart = $elementMatches[0];
 
             $matched = preg_grep('/^'.preg_quote($elementStart, '/').'/', $this->elements);
@@ -63,7 +75,7 @@ class HeadManager
         }
 
         $this->fullTitle = $title;
-        $this->tag('<title inertia>%s</title>', e($title));
+        $this->tag('<title>%s</title>', e($title));
 
         return $this;
     }
@@ -86,7 +98,7 @@ class HeadManager
     public function description(string $description)
     {
         $this->description = $description;
-        $this->tag('<meta name="description" content="%s" inertia>', e($description));
+        $this->tag('<meta name="description" content="%s">', e($description));
 
         return $this;
     }
@@ -111,7 +123,7 @@ class HeadManager
     {
         $url = $url ?? url()->current();
 
-        $this->tag('<meta property="og:url" content="%s" inertia>', e($url));
+        $this->tag('<meta property="og:url" content="%s">', e($url));
 
         return $this;
     }
@@ -119,7 +131,7 @@ class HeadManager
     public function ogTitle(string $title = null)
     {
         if ($title = $title ?? $this->title) {
-            $this->tag('<meta property="og:title" content="%s" inertia>', e($title));
+            $this->tag('<meta property="og:title" content="%s">', e($title));
         }
 
         return $this;
@@ -128,7 +140,7 @@ class HeadManager
     public function ogDescription(string $description = null)
     {
         if ($description = $description ?? $this->description) {
-            $this->tag('<meta property="og:description" content="%s" inertia>', e($description));
+            $this->tag('<meta property="og:description" content="%s">', e($description));
         }
 
         return $this;
@@ -138,11 +150,11 @@ class HeadManager
     {
         if (is_string($image) || (is_null($image) && $this->image)) {
             $image = $image ?? $this->image;
-            $this->tag('<meta property="og:image" content="%s" inertia>', e($image));
+            $this->tag('<meta property="og:image" content="%s">', e($image));
         } elseif (is_array($image)) {
             foreach (['url', 'secure_url', 'type', 'width', 'height'] as $attr) {
                 if (isset($image[$attr])) {
-                    $this->tag('<meta property="og:image:%s" content="%s" inertia>', $attr, e($image[$attr]));
+                    $this->tag('<meta property="og:image:%s" content="%s">', $attr, e($image[$attr]));
                 }
             }
         }
@@ -154,7 +166,7 @@ class HeadManager
     {
         foreach (['url', 'secure_url', 'type', 'width', 'height'] as $attr) {
             if (isset($video[$attr])) {
-                $this->tag('<meta property="og:video:%s" content="%s" inertia>', $attr, e($video[$attr]));
+                $this->tag('<meta property="og:video:%s" content="%s">', $attr, e($video[$attr]));
             }
         }
 
@@ -167,14 +179,14 @@ class HeadManager
 
     public function ogType(string $type = 'website')
     {
-        $this->tag('<meta property="og:type" content="%s" inertia>', e($type));
+        $this->tag('<meta property="og:type" content="%s">', e($type));
 
         return $this;
     }
 
     public function ogLocale(string $locale)
     {
-        $this->tag('<meta property="og:locale" content="%s" inertia>', e($locale));
+        $this->tag('<meta property="og:locale" content="%s">', e($locale));
 
         return $this;
     }
@@ -182,7 +194,7 @@ class HeadManager
     public function fbAppID(string $id = null)
     {
         if ($id = $id ?? config('inertia-ssr-head.fb_app_id')) {
-            $this->tag('<meta property="fb:app_id" content="%s" inertia>', e($id));
+            $this->tag('<meta property="fb:app_id" content="%s">', e($id));
         }
 
         return $this;
@@ -190,7 +202,7 @@ class HeadManager
 
     public function twitterCard(string $type = 'summary')
     {
-        $this->tag('<meta name="twitter:card" content="%s" inertia>', e($type));
+        $this->tag('<meta name="twitter:card" content="%s">', e($type));
 
         return $this;
     }
@@ -250,7 +262,7 @@ class HeadManager
     public function twitterTitle(string $title = null)
     {
         if ($title = $title ?? $this->title) {
-            $this->tag('<meta name="twitter:title" content="%s" inertia>', e($title));
+            $this->tag('<meta name="twitter:title" content="%s">', e($title));
         }
 
         return $this;
@@ -259,7 +271,7 @@ class HeadManager
     public function twitterDescription(string $description = null)
     {
         if ($description = $description ?? $this->description) {
-            $this->tag('<meta name="twitter:description" content="%s" inertia>', e($description));
+            $this->tag('<meta name="twitter:description" content="%s">', e($description));
         }
 
         return $this;
@@ -268,11 +280,11 @@ class HeadManager
     public function twitterImage(string $image = null, string $alt = null)
     {
         if ($image = $image ?? $this->image) {
-            $this->tag('<meta name="twitter:image" content="%s" inertia>', e($image));
+            $this->tag('<meta name="twitter:image" content="%s">', e($image));
         }
 
         if ($alt) {
-            $this->tag('<meta name="twitter:image:alt" content="%s" inertia>', e($alt));
+            $this->tag('<meta name="twitter:image:alt" content="%s">', e($alt));
         }
 
         return $this;
@@ -281,11 +293,11 @@ class HeadManager
     public function twitterSite(string $username = null, string $id = null)
     {
         if ($username = $username ?? config('inertia-ssr-head.twitter_site')) {
-            $this->tag('<meta name="twitter:site" content="%s" inertia>', e($username));
+            $this->tag('<meta name="twitter:site" content="%s">', e($username));
         }
 
         if ($id = $id ?? config('inertia-ssr-head.twitter_site_id')) {
-            $this->tag('<meta name="twitter:site:id" content="%s" inertia>', e($id));
+            $this->tag('<meta name="twitter:site:id" content="%s">', e($id));
         }
 
         return $this;
@@ -294,11 +306,11 @@ class HeadManager
     public function twitterCreator(string $username = null, string $id = null)
     {
         if ($username = $username ?? config('inertia-ssr-head.twitter_creator')) {
-            $this->tag('<meta name="twitter:creator" content="%s" inertia>', e($username));
+            $this->tag('<meta name="twitter:creator" content="%s">', e($username));
         }
 
         if ($id = $id ?? config('inertia-ssr-head.twitter_creator_id')) {
-            $this->tag('<meta name="twitter:creator:id" content="%s" inertia>', e($id));
+            $this->tag('<meta name="twitter:creator:id" content="%s">', e($id));
         }
 
         return $this;
@@ -310,9 +322,9 @@ class HeadManager
         $appId = $app['id'] ?? config('inertia-ssr-head.twitter_app_ios_id');
         $appUrl = $app['url'] ?? config('inertia-ssr-head.twitter_app_ios_url');
 
-        $this->tag('<meta name="twitter:app:name:iphone" content="%s" inertia>', e($appName));
-        $this->tag('<meta name="twitter:app:id:iphone" content="%s" inertia>', e($appId));
-        $this->tag('<meta name="twitter:app:url:iphone" content="%s" inertia>', e($appUrl));
+        $this->tag('<meta name="twitter:app:name:iphone" content="%s">', e($appName));
+        $this->tag('<meta name="twitter:app:id:iphone" content="%s">', e($appId));
+        $this->tag('<meta name="twitter:app:url:iphone" content="%s">', e($appUrl));
 
         return $this;
     }
@@ -323,9 +335,9 @@ class HeadManager
         $appId = $app['id'] ?? config('inertia-ssr-head.twitter_app_ios_id');
         $appUrl = $app['url'] ?? config('inertia-ssr-head.twitter_app_ios_url');
 
-        $this->tag('<meta name="twitter:app:name:ipad" content="%s" inertia>', e($appName));
-        $this->tag('<meta name="twitter:app:id:ipad" content="%s" inertia>', e($appId));
-        $this->tag('<meta name="twitter:app:url:ipad" content="%s" inertia>', e($appUrl));
+        $this->tag('<meta name="twitter:app:name:ipad" content="%s">', e($appName));
+        $this->tag('<meta name="twitter:app:id:ipad" content="%s">', e($appId));
+        $this->tag('<meta name="twitter:app:url:ipad" content="%s">', e($appUrl));
 
         return $this;
     }
@@ -336,27 +348,27 @@ class HeadManager
         $appId = $app['id'] ?? config('inertia-ssr-head.twitter_app_googleplay_id');
         $appUrl = $app['url'] ?? config('inertia-ssr-head.twitter_app_googleplay_url');
 
-        $this->tag('<meta name="twitter:app:name:googleplay" content="%s" inertia>', e($appName));
-        $this->tag('<meta name="twitter:app:id:googleplay" content="%s" inertia>', e($appId));
-        $this->tag('<meta name="twitter:app:url:googleplay" content="%s" inertia>', e($appUrl));
+        $this->tag('<meta name="twitter:app:name:googleplay" content="%s">', e($appName));
+        $this->tag('<meta name="twitter:app:id:googleplay" content="%s">', e($appId));
+        $this->tag('<meta name="twitter:app:url:googleplay" content="%s">', e($appUrl));
 
         return $this;
     }
 
     public function twitterAppCountry(string $country)
     {
-        $this->tag('<meta name="twitter:app:country" content="%s" inertia>', e($country));
+        $this->tag('<meta name="twitter:app:country" content="%s">', e($country));
 
         return $this;
     }
 
     public function twitterPlayer(array $player)
     {
-        $this->tag('<meta name="twitter:player" content="%s" inertia>', e($player['url']));
+        $this->tag('<meta name="twitter:player" content="%s">', e($player['url']));
 
         foreach (['width', 'height', 'stream'] as $attr) {
             if (isset($player[$attr])) {
-                $this->tag('<meta name="twitter:player:%s" content="%s" inertia>', $attr, e($player[$attr]));
+                $this->tag('<meta name="twitter:player:%s" content="%s">', $attr, e($player[$attr]));
             }
         }
 
@@ -391,6 +403,13 @@ class HeadManager
     public function setElements(array $elements)
     {
         $this->elements = $elements;
+
+        return $this;
+    }
+
+    public function showInertiaAttribute(bool $show = true)
+    {
+        $this->showInertiaAttribute = $show;
 
         return $this;
     }

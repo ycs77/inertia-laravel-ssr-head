@@ -128,8 +128,8 @@ Then will be rendered to this HTML tags:
 
 ```html
 <head>
-    <title inertia>My homepage</title>
-    <meta name="description" content="Hello, This is my homepage~" inertia>
+    <title>My homepage</title>
+    <meta name="description" content="Hello, This is my homepage~">
 </head>
 ```
 
