@@ -153,7 +153,7 @@ Also, if you are using this package, it is not recommended to use Inertia `<Head
 
 ### Title template
 
-If you want add the Web site name after title, use `titleTemplate()` in `AppServiceProvider`:
+If you want add the Web site name after title, use `titleTemplate()` in `AppServiceProvider`, support using string and Closure:
 
 ```php
 use Inertia\Inertia;
@@ -171,7 +171,7 @@ Or setting for one Inertia page:
 
 ```php
 return Inertia::render('Home')
-    ->title('My homepage', '%s - '.config('app.name'));
+    ->title('My homepage', '%s :: My App');
 ```
 
 If you want to disable title template only one page, you can set in `title()`:
