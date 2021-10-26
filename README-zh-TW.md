@@ -13,9 +13,7 @@
 
 ### **記住！這個套件不是完整的 SSR 解決方案！！並沒有解決 SEO 的問題！**
 
-因為我做這個套件的目的是可以**不用裝** (或不能裝) Headless Chrome、Node.js 或 PHP V8 Extension 時，為了讓 Inertia.js 的網站可以比較輕鬆的讓 bot 抓取 Open Graph Meta。
-
-適用情境：比如可能不會在伺服器上裝以上的套件，比如可能伺服器不支援 (共享主機)。
+因為我做這個套件的目的是可以**不用裝** (或不能裝) Headless Chrome、Node.js 或 PHP V8 Extension 時，為了讓 Inertia.js 的網站可以比較輕鬆的讓 bot 抓取 Open Graph Meta。適用情境於，比如不熟悉如何在伺服器上裝以上的套件，或者是上線網站伺服器不支援 (例：共享主機)。
 
 靈感來自 [Inertia.js 官網 - Root template data](https://inertiajs.com/responses#root-template-data)。
 
