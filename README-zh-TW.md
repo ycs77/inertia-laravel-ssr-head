@@ -6,30 +6,28 @@
 [![Style CI Build Status][ico-style-ci]][link-style-ci]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-[正體中文](README-zh-TW.md)
+一個簡易的 Inertia Laravel SSR Head 套件
 
-Simple SSR Head for Inertia Laravel
+- 🕶️ 解決了在小型 Inertia.js x Laravel 網站中，無法顯示社群媒體資訊 (Open Graph Meta) 的問題
+- ❌ 不需要安裝 Headless Chrome、Node.js 或 PHP V8 Extension
 
-- 🕶️ Solves the Open Graph Meta crawling in small Inertia.js x Laravel app
-- ❌ No Headless Chrome, Node.js or PHP V8 Extension
+**記住！這個套件不是完整的 SSR 解決方案！！並沒有解決 SEO 的問題！**
 
-**NOT a full SSR solution!! It doesn't solve the SEO problem!**
+因為我做這個套件的目的是可以**不用裝** (或不能裝) Headless Chrome、Node.js 或 PHP V8 Extension 時，為了讓 Inertia.js 的網站可以比較輕鬆的讓 bot 抓取 Open Graph Meta。
 
-Because I made this package to make it easier for bot to crawl Open Graph Meta on Inertia.js App **without installing** (or can't installing) Headless Chrome, Node.js or PHP V8 Extension.
+適用情境：比如可能不會在伺服器上裝以上的套件，比如可能伺服器不支援 (共享主機)。
 
-Situations: For example, may not know how to install the above package on the server, or the server may not support them (e.g. shared hosting).
+靈感來自 [Inertia.js 官網 - Root template data](https://inertiajs.com/responses#root-template-data)。
 
-Inspired by [Root template data of Inertia.js docs](https://inertiajs.com/responses#root-template-data).
+## 安裝套件
 
-## Installation
-
-Install the package via composer:
+使用 Composer 安裝套件：
 
 ```bash
 composer require ycs77/inertia-laravel-ssr-head
 ```
 
-Replace `<title>` to `@inertiaHead` directive:
+替換 `<title>` 成 `@inertiaHead`：
 
 ```diff
 <!DOCTYPE html>
@@ -47,19 +45,19 @@ Replace `<title>` to `@inertiaHead` directive:
 </html>
 ```
 
-### Install client plugin
+### 安裝前端套件 (client 端)
 
-And install the client npm package:
+可以用 NPM 或 Yarn 安裝：
 
 ```bash
 npm install inertia-title
-// or
+// 或
 yarn add inertia-title
 ```
 
-The package just auto update client `<title>` tag.
+想當然耳這個套件只會更新 `<title>` XD
 
-Add plugin for Vue 2 in `resources/js/app.js`:
+然後來看看要怎麼使用，首先先開啟 `resources/js/app.js`，Vue 2 的用法是：
 
 ```diff
 ...
@@ -72,7 +70,7 @@ createInertiaApp({
 })
 ```
 
-Use in Vue 3 in `resources/js/app.js`:
+Vue 3 的用法：
 
 ```diff
 ...
@@ -89,7 +87,7 @@ createInertiaApp({
 })
 ```
 
-Use in React or other client-side framework:
+如果你是用 React 或其他前端框架：
 
 ```diff
 ...
@@ -98,15 +96,15 @@ Use in React or other client-side framework:
 +useInertiaTitle()
 ```
 
-## Config
+## Config 設定
 
-Publish the config file with:
+發布 config 檔：
 
 ```bash
 php artisan vendor:publish --tag="inertia-ssr-head-config"
 ```
 
-You can setting the twitter site username or many in config `inertia-ssr-head.php`:
+你可以在 config 檔 `inertia-ssr-head.php` 裡面設定整個網站的 twitter site username 或其他的設定：
 
 ```php
 <?php
@@ -132,28 +130,28 @@ return [
 ];
 ```
 
-## Usage
+## 用法
 
-Setting page title and description:
+設定 title 和 description：
 
 ```php
 return Inertia::render('Home')
-    ->title('My homepage')
-    ->description('Hello, This is my homepage~');
+    ->title('首頁')
+    ->description('哈囉！這是首頁~');
 ```
 
-Then will be rendered to this HTML tags:
+然後會渲染成以下的 HTML：
 
 ```html
 <head>
-    <title>My homepage</title>
-    <meta name="description" content="Hello, This is my homepage~">
+    <title>首頁</title>
+    <meta name="description" content="哈囉！這是首頁~">
 </head>
 ```
 
-The head tags just render with server-side on first visit page, client only update `<title>`, no update other meta tags. Because the purpose of this package is only to allow the bot to crawl meta tags, it is omitted on the client side.
+在 SSR head 套件中，這些 head 標籤只會在首次訪問頁面時在 server 端渲染，client 端切換頁面只會更新 `<title>`，不會更新其他 meta 標籤。因為這個套件的目的只是要讓機器人抓取 meta 標籤，所以在 client 端就省略了。
 
-The title will injection to props, you can get the page title with using prop `title` or `$page.props.title` in client Vue 2/3:
+標題會被塞進 props 裡，可以用 prop `title` 或 `$page.props.title` 取得標題，這裡是 Vue 的範例：
 
 ```js
 export default {
@@ -161,17 +159,17 @@ export default {
     title: String,
   },
   mounted() {
-    this.title             // => 'My homepage'  (with props)
-    this.$page.props.title // => 'My homepage'  (with $page)
+    this.title             // => '首頁'  (用 props 取得標題)
+    this.$page.props.title // => '首頁'  (用 $page 取得標題)
   },
 }
 ```
 
-Also, if you are using this package, it is not recommended to use Inertia `<Head>`.
+還有，如果你安裝了這個套件，就不要用 Inertia 的 `<Head>`，會造成衝突。
 
 ### Title template
 
-If you want add the Web site name after title, use `titleTemplate()` in `AppServiceProvider`, support using string and Closure:
+如果你要在標題後面都自動增加網站的名稱，可以在 `AppServiceProvider` 中使用 `titleTemplate()`，支持 string 和 Closure 兩種方式，：
 
 ```php
 use Inertia\Inertia;
@@ -181,80 +179,80 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Inertia::titleTemplate(fn ($title) => $title ? "$title - My App" : 'My App');
-        // or pass string and %s will be replaced with the page title
+        // 或者傳入字串，%s 會被替換成頁面標題
         Inertia::titleTemplate('%s - My App');
     }
 }
 ```
 
-Or setting for one Inertia page:
+或者可以在單個 Inertia 頁面上設定：
 
 ```php
 return Inertia::render('Home')
-    ->title('My homepage', '%s :: My App');
+    ->title('首頁', '%s :: My App');
 ```
 
-If you want to disable title template only one page, you can set `false` in `title()`:
+如果要禁用 Title template 的話，可以傳 `false` 進去：
 
 ```php
 return Inertia::render('Home')
-    ->title('My homepage', false);
+    ->title('首頁', false);
 ```
 
-### Open Graph meta tags
+### Open Graph 標籤
 
-Render Open Graph tags, have `title`, `description` and `ogMeta()`, the `ogMeta()` will generate the Open Graph meta `og:title`, `og:description`, `og:image`:
+渲染 Open Graph 標籤，需要有 `title`、`description` 和 `ogMeta()`，`ogMeta()` 則是會自動生成 `og:title`、`og:description`、`og:image` 三個標籤：
 
 ```php
 return Inertia::render('Home')
-    ->title('My homepage')
-    ->description('Hello, This is my homepage~')
+    ->title('首頁')
+    ->description('哈囉！這是首頁~')
     ->image('https://example.com/image')
     ->ogMeta();
 
-// Same...
+// 效果一樣...
 return Inertia::render('Home')
-    ->title('My homepage')
-    ->description('Hello, This is my homepage~')
+    ->title('首頁')
+    ->description('哈囉！這是首頁~')
     ->image('https://example.com/image')
-    ->ogTitle('My homepage')
-    ->ogDescription('Hello, This is my homepage~')
+    ->ogTitle('首頁')
+    ->ogDescription('哈囉！這是首頁~')
     ->ogImage('https://example.com/image');
 ```
 
-Or if you want only render `og:title`, `og:description` meta tags:
+或者可以單獨設定 `og:title`、`og:description` 標籤：
 
 ```php
 return Inertia::render('Home')
-    ->title('My homepage')
+    ->title('首頁')
     ->ogTitle('Custom og title')
     ->ogDescription('Custom og description...');
 ```
 
-### Twitter Card meta tags
+### Twitter Card 標籤
 
-Add Twitter Summary card meta tags with `twitterSummaryCard()`:
+用 `twitterSummaryCard()` 設定 Twitter Summary card 的標籤：
 
 ```php
 return Inertia::render('Home')
-    ->title('My homepage')
-    ->description('Hello, This is my homepage~')
+    ->title('首頁')
+    ->description('哈囉！這是首頁~')
     ->image('https://example.com/image')
     ->twitterSummaryCard();
 ```
 
-Add Summary large image card meta tags with `twitterLargeCard()`:
+用 `twitterLargeCard()` 設定 Summary large image card 的標籤：
 
 ```php
 return Inertia::render('Home')
-    ->title('My homepage')
-    ->description('Hello, This is my homepage~')
+    ->title('首頁')
+    ->description('哈囉！這是首頁~')
     ->image('https://example.com/image')
     ->twitterLargeCard()
     ->twitterCreator('@creator_twitter_name');
 ```
 
-Add App card meta tags with `twitterAppCard()`:
+用 `twitterAppCard()` 設定 App card 的標籤：
 
 ```php
 return Inertia::render('AppHome')
@@ -262,23 +260,23 @@ return Inertia::render('AppHome')
     ->description('App description...')
     ->twitterAppCard()
     ->twitterAppForIphone([
-        'name' => 'Your APP',
+        'name' => '你的 APP',
         'id' => '123456789',
         'url' => 'https://example.com/iphone_app',
     ])
     ->twitterAppForIpad([
-        'name' => 'Your APP',
+        'name' => '你的 APP',
         'id' => '123456789',
         'url' => 'https://example.com/ipad_app',
     ])
     ->twitterAppForGoogleplay([
-        'name' => 'Your APP',
+        'name' => '你的 APP',
         'id' => '123456789',
         'url' => 'https://example.com/googleplay_app',
     ]);
 ```
 
-Add Player card meta tags with `twitterPlayerCard()`:
+用 `twitterPlayerCard()` 設定 Player card 的標籤：
 
 ```php
 return Inertia::render('Home')
@@ -292,30 +290,30 @@ return Inertia::render('Home')
     ]);
 ```
 
-## Custom head tag
+## 自訂 head 標籤
 
-Use `head()` method will add the custom HTML tag in `<head>`:
+使用 `head()` 方法可以注入自訂的 HTML 標籤到 `<head>` 裡面：
 
 ```php
 return Inertia::render('Home')
-    ->title('My homepage')
+    ->title('首頁')
     ->head('<meta name="my-meta" content="some data...">')
-    ->head('<meta name="my-meta" content="%s">', e('some data...')) // escape data
+    ->head('<meta name="my-meta" content="%s">', e('some data...')) // escape 傳入資料
 ```
 
-## Testing
+## 測試
 
 ```bash
 composer test
 ```
 
-## Alternatives
+## 其他選擇
 
-If need full SSR solution, please using [Inertia.js Official Server-side Rendering](https://inertiajs.com/server-side-rendering).
+如果你需要完整的 SSR 解決方案，可以使用 [Inertia.js 官方 Server-side Rendering](https://inertiajs.com/server-side-rendering) 功能。
 
-## Reference
+## 參考資料
 
-* Inertia.js docs: [Root template data](https://inertiajs.com/responses#root-template-data)
+* Inertia.js 文檔：[Root template data](https://inertiajs.com/responses#root-template-data)
 * Facebool for Developers: [Webmasters - Sharing](https://developers.facebook.com/docs/sharing/webmasters)
 * Twitter Developer Platform: [About Twitter Cards | Docs](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards)
 
