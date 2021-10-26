@@ -6,9 +6,12 @@
 [![Style CI Build Status][ico-style-ci]][link-style-ci]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Simple SSR Head for Inertia Laravel, solve the social media metadata display of small Inertia.js x Laravel site.
+Simple SSR Head for Inertia Laravel
 
-**NOT a full SSR solution!!**
+- 🕶️ Solves the Open Graph Meta crawling in small Inertia.js x Laravel app
+- ❌ No Headless Chrome, Node.js or PHP V8 Extension
+
+**NOT a full SSR solution!!** Because the purpose of this package is to provide a solution when you don't have to install (or can't install) Headless Chrome, Node.js or PHP V8 Extension, for example, you may not install it (e.g. programming rookie), or the server may not support it (e.g. shared hosting), in order to make the Inertia.js app easier for bot to crawl Open Graph Meta, so there is this package.
 
 Inspired by [Root template data of Inertia.js docs](https://inertiajs.com/responses#root-template-data).
 
@@ -50,7 +53,7 @@ yarn add inertia-title
 
 The package just auto update client `<title>` tag.
 
-Add plugin for Vue 2 in `app.js`:
+Add plugin for Vue 2 in `resources/js/app.js`:
 
 ```diff
 ...
@@ -63,7 +66,7 @@ createInertiaApp({
 })
 ```
 
-Use in Vue 3 in `app.js`:
+Use in Vue 3 in `resources/js/app.js`:
 
 ```diff
 ...
