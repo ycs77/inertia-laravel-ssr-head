@@ -16,7 +16,7 @@ Simple SSR Head for Inertia Laravel
 
 ### **NOT a full SSR solution!! It doesn't solve the SEO problem!**
 
-Because I made this package to make it easier for bot to crawl Open Graph Meta on Inertia.js App **without installing** (or can't installing) Headless Chrome, Node.js or PHP V8 Extension. This is applicable in situations where you are not familiar with how to install the above packages on the server, or the online web server does not support them (e.g. shared hosting).
+Because I made this package to make it easier for bot to crawl Open Graph Meta on Inertia.js App **without installing** (or can't installing) Headless Chrome, Node.js or PHP V8 Extension. This is applicable in situations where you are not familiar with how to install the above packages on the server, or the server does not support them (e.g. shared hosting).
 
 Inspired by [Root template data of Inertia.js docs](https://inertiajs.com/responses#root-template-data).
 
