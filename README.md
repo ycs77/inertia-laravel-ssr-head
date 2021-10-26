@@ -6,7 +6,7 @@
 [![Style CI Build Status][ico-style-ci]][link-style-ci]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-[正體中文](README-zh-TW.md)
+[繁體中文](README-zh-TW.md)
 
 Simple SSR Head for Inertia Laravel
 
