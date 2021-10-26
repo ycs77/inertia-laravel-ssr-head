@@ -11,7 +11,11 @@ Simple SSR Head for Inertia Laravel
 - 🕶️ Solves the Open Graph Meta crawling in small Inertia.js x Laravel app
 - ❌ No Headless Chrome, Node.js or PHP V8 Extension
 
-**NOT a full SSR solution!!** Because the purpose of this package is to provide a solution when you don't have to install (or can't install) Headless Chrome, Node.js or PHP V8 Extension, for example, you may not install it (e.g. programming rookie), or the server may not support it (e.g. shared hosting), in order to make the Inertia.js app easier for bot to crawl Open Graph Meta, so there is this package.
+**NOT a full SSR solution!! It doesn't solve the SEO problem!**
+
+Because I made this package to make it easier for bot to crawl Open Graph Meta on Inertia.js App **without installing** (or can't installing) Headless Chrome, Node.js or PHP V8 Extension.
+
+Situations: For example, may not know how to install the above package on the server, or the server may not support them (e.g. shared hosting).
 
 Inspired by [Root template data of Inertia.js docs](https://inertiajs.com/responses#root-template-data).
 
@@ -145,9 +149,9 @@ Then will be rendered to this HTML tags:
 </head>
 ```
 
-The head tags just render with server-side on first visit page, client only update `<title>`, no update other meta tags.
+The head tags just render with server-side on first visit page, client only update `<title>`, no update other meta tags. Because the purpose of this package is only to allow the bot to crawl meta tags, it is omitted on the client side.
 
-The title will injection to `$page`, you can get the page title with using prop `title` or `$page.props.title` in client Vue 2/3:
+The title will injection to props, you can get the page title with using prop `title` or `$page.props.title` in client Vue 2/3:
 
 ```js
 export default {
@@ -175,6 +179,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Inertia::titleTemplate(fn ($title) => $title ? "$title - My App" : 'My App');
+        // or pass string and %s will be replaced with the page title
+        Inertia::titleTemplate('%s - My App');
     }
 }
 ```
@@ -186,7 +192,7 @@ return Inertia::render('Home')
     ->title('My homepage', '%s :: My App');
 ```
 
-If you want to disable title template only one page, you can set in `title()`:
+If you want to disable title template only one page, you can set `false` in `title()`:
 
 ```php
 return Inertia::render('Home')
@@ -195,7 +201,7 @@ return Inertia::render('Home')
 
 ### Open Graph meta tags
 
-Render Open Graph tags, have `title`, `description`, `ogMeta()` is generate the Open Graph meta `og:title`, `og:description`, `og:image`:
+Render Open Graph tags, have `title`, `description` and `ogMeta()`, the `ogMeta()` will generate the Open Graph meta `og:title`, `og:description`, `og:image`:
 
 ```php
 return Inertia::render('Home')
@@ -273,7 +279,7 @@ return Inertia::render('AppHome')
 Add Player card meta tags with `twitterPlayerCard()`:
 
 ```php
-return Inertia::render('AppHome')
+return Inertia::render('Home')
     ->title('Video title')
     ->description('Video description...')
     ->image('https://example.com/video_thumbnail')
@@ -284,15 +290,13 @@ return Inertia::render('AppHome')
     ]);
 ```
 
-## Custom
+## Custom head tag
 
-### Add custom tag
-
-Use `head()` method will add the custom HTML tag:
+Use `head()` method will add the custom HTML tag in `<head>`:
 
 ```php
-return Inertia::render('AppHome')
-    ->title('Video title')
+return Inertia::render('Home')
+    ->title('My homepage')
     ->head('<meta name="my-meta" content="some data...">')
     ->head('<meta name="my-meta" content="%s">', e('some data...')) // escape data
 ```
