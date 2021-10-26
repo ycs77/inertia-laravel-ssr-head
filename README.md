@@ -10,8 +10,9 @@
 
 Simple SSR Head for Inertia Laravel
 
-- 🕶️ Solves the Open Graph Meta crawling in Inertia.js x Laravel app
+- 👓 Solved the Open Graph Meta crawling problem in Inertia.js x Laravel app
 - ❌ No Headless Chrome, Node.js or PHP V8 Extension
+- 🪄 Auto update Inertia page title
 
 ### **NOT a full SSR solution!! It doesn't solve the SEO problem!**
 
