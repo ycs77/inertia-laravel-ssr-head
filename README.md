@@ -66,7 +66,7 @@ createInertiaApp({
 Use in Vue 3 in `app.js`:
 
 ```diff
- ...
+...
 +import InertiaTitle from 'inertia-title/vue3'
 
 createInertiaApp({
@@ -78,6 +78,15 @@ createInertiaApp({
       .mount(el)
   },
 })
+```
+
+Use in React or other client-side framework:
+
+```diff
+...
++import { useInertiaTitle } from 'inertia-title'
+
++useInertiaTitle()
 ```
 
 ## Config
