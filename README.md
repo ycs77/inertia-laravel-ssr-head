@@ -11,12 +11,12 @@
 Simple SSR Head for Inertia Laravel
 
 - 😎 Solved the Open Graph Meta crawling problem in Inertia.js x Laravel app
-- ❌ No Headless Chrome, Node.js or PHP V8 Extension
-- ✨ Auto update Inertia page title
+- ❌ No Headless Chrome, Node.js, or PHP V8 Extension
+- ✨ Auto-update Inertia page title
 
 ### **NOT a full SSR solution!! It doesn't solve the SEO problem!**
 
-Because I made this package to make it easier for bot to crawl Open Graph Meta on Inertia.js App **without installing** (or can't installing) Headless Chrome, Node.js or PHP V8 Extension. This is applicable in situations where you are not familiar with how to install the above packages on the server, or the server does not support them (e.g. shared hosting).
+Because I made this package to make it easier for the bot to crawl Open Graph Meta on Inertia.js App **without installing** (or can't installing) Headless Chrome, Node.js, or PHP V8 Extension. This is applicable in situations where you are not familiar with how to install the above packages on the server, or the server does not support them (e.g. shared hosting).
 
 Inspired by [Root template data of Inertia.js docs](https://inertiajs.com/responses#root-template-data).
 
@@ -56,7 +56,7 @@ npm install inertia-title
 yarn add inertia-title
 ```
 
-The package just auto update client `<title>` tag.
+The package just auto-updates the client `<title>` tag.
 
 Add plugin for Vue 2 in `resources/js/app.js`:
 
@@ -88,7 +88,7 @@ createInertiaApp({
 })
 ```
 
-Use in React or other client-side framework:
+Use in React or other client-side frameworks:
 
 ```diff
 ...
@@ -105,7 +105,7 @@ Publish the config file with:
 php artisan vendor:publish --tag="inertia-ssr-head-config"
 ```
 
-You can setting the twitter site username or many in config `inertia-ssr-head.php`:
+You can set the twitter site username or many in config `inertia-ssr-head.php`:
 
 ```php
 <?php
@@ -150,7 +150,7 @@ Then will be rendered to this HTML tags:
 </head>
 ```
 
-The head tags just render with server-side on first visit page, client only update `<title>`, no update other meta tags. Because the purpose of this package is only to allow the bot to crawl meta tags, it is omitted on the client side.
+The head tags just render with server-side on first visit page, the client only updates `<title>`, no update other meta tags. Because the purpose of this package is only to allow the bot to crawl meta tags, it is omitted on the client-side.
 
 The title will injection to props, you can get the page title with using prop `title` or `$page.props.title` in client Vue 2/3:
 
@@ -170,7 +170,7 @@ Also, if you are using this package, it is not recommended to use Inertia `<Head
 
 ### Title template
 
-If you want add the Web site name after title, use `titleTemplate()` in `AppServiceProvider`, support using string and Closure:
+If you want to add the Web site name after the title, use `titleTemplate()` in `AppServiceProvider`, support using string and Closure:
 
 ```php
 use Inertia\Inertia;
@@ -310,7 +310,7 @@ composer test
 
 ## Alternatives
 
-If need full SSR solution, please using [Inertia.js Official Server-side Rendering](https://inertiajs.com/server-side-rendering).
+If you need a full SSR solution, please use [Inertia.js Official Server-side Rendering](https://inertiajs.com/server-side-rendering).
 
 ## Reference
 
