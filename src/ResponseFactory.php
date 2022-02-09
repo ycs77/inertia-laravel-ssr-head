@@ -18,7 +18,7 @@ class ResponseFactory extends BaseResponseFactory
         return $this;
     }
 
-    public function render($component, $props = [])
+    public function render($component, $props = []): Response
     {
         return tap(parent::render($component, $props), function (Response $response) {
             if ($this->usingTitleTemplate) {
