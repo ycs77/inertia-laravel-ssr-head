@@ -315,7 +315,7 @@ If you need a full SSR solution, please use [Inertia.js Official Server-side Ren
 ## Reference
 
 * Inertia.js docs: [Root template data](https://inertiajs.com/responses#root-template-data)
-* Facebool for Developers: [Webmasters - Sharing](https://developers.facebook.com/docs/sharing/webmasters)
+* Meta for Developers: [Webmasters - Sharing](https://developers.facebook.com/docs/sharing/webmasters)
 * Twitter Developer Platform: [About Twitter Cards | Docs](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards)
 
 ## Contributing

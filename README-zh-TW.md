@@ -313,7 +313,7 @@ composer test
 ## 參考資料
 
 * Inertia.js 文檔：[Root template data](https://inertiajs.com/responses#root-template-data)
-* Facebool for Developers: [Webmasters - Sharing](https://developers.facebook.com/docs/sharing/webmasters)
+* Meta for Developers: [Webmasters - Sharing](https://developers.facebook.com/docs/sharing/webmasters)
 * Twitter Developer Platform: [About Twitter Cards | Docs](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards)
 
 ## Contributing
