@@ -20,6 +20,7 @@ class HeadManager
     /** @var string */
     protected $image;
 
+    /** @deprecated v2.0.0 */
     protected $showInertiaAttribute = false;
 
     protected $space = 0;
@@ -407,6 +408,7 @@ class HeadManager
         return $this;
     }
 
+    /** @deprecated v2.0.0 */
     public function showInertiaAttribute(bool $show = true)
     {
         $this->showInertiaAttribute = $show;

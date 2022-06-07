@@ -12,18 +12,6 @@ test('can add tag', function () {
     expect($elements)->toBe(['<title>Page title</title>']);
 });
 
-test('can inject inertia attribute', function () {
-    $head = new HeadManager();
-
-    $head
-        ->showInertiaAttribute()
-        ->tag('<title>%s</title>', e('Page title'));
-
-    $elements = $head->getElements();
-
-    expect($elements)->toBe(['<title inertia>Page title</title>']);
-});
-
 test('can add title tag', function () {
     $head = new HeadManager();
 
