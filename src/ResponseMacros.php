@@ -7,6 +7,7 @@ namespace Inertia\SSRHead;
  */
 class ResponseMacros
 {
+    /** @return \Inertia\SSRHead\HeadManager */
     public function headManager()
     {
         return function () {
