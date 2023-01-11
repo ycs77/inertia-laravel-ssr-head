@@ -22,6 +22,16 @@ test('can add title tag', function () {
     expect($elements)->toBe(['<title>Page title</title>']);
 });
 
+test('escape special characters', function () {
+    $head = new HeadManager();
+
+    $head->title('<>\'"');
+
+    $elements = $head->getElements();
+
+    expect($elements)->toBe(['<title>&lt;&gt;&#039;&quot;</title>']);
+});
+
 test('can use title template with method', function () {
     $head = new HeadManager();
 
