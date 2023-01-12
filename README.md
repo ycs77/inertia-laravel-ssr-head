@@ -79,8 +79,8 @@ Use in Vue 3 in `resources/js/app.js`:
 
 createInertiaApp({
   ...
-  setup({ el, app, props, plugin }) {
-    createApp({ render: () => h(app, props) })
+  setup({ el, App, props, plugin }) {
+    createApp({ render: () => h(App, props) })
       .use(plugin)
 +     .use(InertiaTitle)
       .mount(el)
