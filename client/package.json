@@ -7,14 +7,17 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     },
     "./vue2": {
+      "types": "./dist/vue2.d.ts",
       "require": "./dist/vue2.cjs",
       "import": "./dist/vue2.mjs"
     },
     "./vue3": {
+      "types": "./dist/vue3.d.ts",
       "require": "./dist/vue3.cjs",
       "import": "./dist/vue3.mjs"
     }
