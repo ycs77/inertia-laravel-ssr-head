@@ -6,6 +6,6 @@ export default <Options>{
   outExtension: ({ format }) => ({
     js: format === 'esm' ? '.mjs' : '.cjs',
   }),
-  external: ['@inertiajs/core'],
+  external: ['@inertiajs/core', 'vue'],
   dts: true,
 }
