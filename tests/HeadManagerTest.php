@@ -123,6 +123,22 @@ test('can add title and og:title', function () {
     ]);
 });
 
+test('can add og:title with full title', function () {
+    $head = new HeadManager();
+
+    $head
+        ->titleTemplate('%s - My website')
+        ->title('Page title')
+        ->ogTitle();
+
+    $elements = $head->getElements();
+
+    expect($elements)->toBe([
+        '<title>Page title - My website</title>',
+        '<meta property="og:title" content="Page title - My website">',
+    ]);
+});
+
 test('can add title and custom og:title', function () {
     $head = new HeadManager();
 

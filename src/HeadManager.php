@@ -131,7 +131,7 @@ class HeadManager
 
     public function ogTitle(string $title = null)
     {
-        if ($title = $title ?? $this->title) {
+        if ($title = $title ?? $this->fullTitle) {
             $this->tag('<meta property="og:title" content="%s">', e($title));
         }
 
