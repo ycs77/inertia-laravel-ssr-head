@@ -58,7 +58,7 @@ npm install inertia-title
 yarn add inertia-title
 ```
 
-這個套件是會自動更新 `<title>`。
+這個套件功能是會自動更新 `<title>`。
 
 然後來看看要怎麼使用，首先先開啟 `resources/js/app.js`，Vue 2 的註冊方法是：
 
@@ -189,7 +189,7 @@ page.props.title // => '首頁'  (用 page.props 取得標題)
 
 ### Title template
 
-如果你要在標題後面都自動增加網站的名稱，可以在 `AppServiceProvider` 中使用 `titleTemplate()`，支持 string 和 Closure 兩種方式，：
+如果你要在標題後面都自動增加網站的名稱，可以在 `AppServiceProvider` 中使用 `titleTemplate()`，支援 string 和 Closure 兩種方式，：
 
 ```php
 use Inertia\Inertia;
