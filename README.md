@@ -154,21 +154,38 @@ Then will be rendered to this HTML tags:
 
 The head tags just render with server-side on first visit page, the client only updates `<title>`, no update other meta tags. Because the purpose of this package is only to allow the bot to crawl meta tags, it is omitted on the client-side.
 
-The title will injection to props, you can get the page title with using prop `title` or `$page.props.title` in client Vue 2/3:
+The title will injection to props, you can get the page title with using prop `title` or `$page.props.title` with the Vue Options API:
 
 ```js
 export default {
   props: {
     title: String,
   },
-  mounted() {
+  created() {
     this.title             // => 'My homepage'  (with props)
     this.$page.props.title // => 'My homepage'  (with $page)
   },
 }
 ```
 
-Also, if you are using this package, it is not recommended to use Inertia `<Head>`.
+Or using the Vue Composition API:
+
+```vue
+<script setup>
+import { usePage } from '@inertiajs/vue3'
+
+const props = defineProps({
+  title: String,
+})
+
+const page = usePage()
+
+props.title      // => 'My homepage'  (with props)
+page.props.title // => 'My homepage'  (with page.props)
+</script>
+```
+
+Also, if you are using this package, it is don't use Inertia `<Head>`.
 
 ### Title template
 

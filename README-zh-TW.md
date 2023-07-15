@@ -154,21 +154,38 @@ return Inertia::render('Home')
 
 在 SSR head 套件中，這些 head 標籤只會在首次訪問頁面時在 server 端渲染，client 端切換頁面只會更新 `<title>`，不會更新其他 meta 標籤。因為這個套件的目的只是要讓機器人抓取 meta 標籤，所以在 client 端就省略了。
 
-標題會被塞進 props 裡，可以用 prop `title` 或 `$page.props.title` 取得標題，這裡是 Vue 的範例：
+標題會被塞進 props 裡，可以用 prop `title` 或 `$page.props.title` 取得標題，這裡有 Vue Options API 的範例：
 
 ```js
 export default {
   props: {
     title: String,
   },
-  mounted() {
+  created() {
     this.title             // => '首頁'  (用 props 取得標題)
     this.$page.props.title // => '首頁'  (用 $page 取得標題)
   },
 }
 ```
 
-還有，如果你安裝了這個套件，就不要用 Inertia 的 `<Head>`，會造成衝突。
+以及 Composition API 的範例：
+
+```vue
+<script setup>
+import { usePage } from '@inertiajs/vue3'
+
+const props = defineProps({
+  title: String,
+})
+
+const page = usePage()
+
+props.title      // => '首頁'  (用 props 取得標題)
+page.props.title // => '首頁'  (用 page.props 取得標題)
+</script>
+```
+
+還有，如果你安裝了這個套件，就不要使用 Inertia 的 `<Head>`，會造成衝突。
 
 ### Title template
 
