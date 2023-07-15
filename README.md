@@ -14,11 +14,13 @@ Simple SSR Head for Inertia Laravel
 - ❌ No Headless Chrome, Node.js, or PHP V8 Extension
 - ✨ Auto-update Inertia page title
 
+Inspired by [Root template data of Inertia.js docs](https://inertiajs.com/responses#root-template-data).
+
 ### **NOT a full SSR solution!! It doesn't solve the SEO problem!**
 
 Because I made this package to make it easier for the bot to crawl Open Graph Meta on Inertia.js App **without installing** (or can't installing) Headless Chrome, Node.js, or PHP V8 Extension. This is applicable in situations where you are not familiar with how to install the above packages on the server, or the server does not support them (e.g. shared hosting).
 
-Inspired by [Root template data of Inertia.js docs](https://inertiajs.com/responses#root-template-data).
+If you need a full SSR solution, please use [Inertia.js Official Server-side Rendering](https://inertiajs.com/server-side-rendering).
 
 ## Installation
 
@@ -307,10 +309,6 @@ return Inertia::render('Home')
 ```bash
 composer test
 ```
-
-## Alternatives
-
-If you need a full SSR solution, please use [Inertia.js Official Server-side Rendering](https://inertiajs.com/server-side-rendering).
 
 ## Reference
 

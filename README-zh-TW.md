@@ -14,11 +14,13 @@
 - ❌ 不需要安裝 Headless Chrome、Node.js 或 PHP V8 Extension
 - ✨ 自動更新 Inertia 頁面標題
 
+靈感來自 [Inertia.js 官網 - Root template data](https://inertiajs.com/responses#root-template-data)。
+
 ### **記住！這個套件不是完整的 SSR 解決方案！！並沒有解決 SEO 的問題！**
 
 因為我做這個套件的目的是可以**不用裝** (或不能裝) Headless Chrome、Node.js 或 PHP V8 Extension 時，為了讓 Inertia.js 的網站可以比較輕鬆的讓 bot 抓取 Open Graph Meta。適用情境於，比如不熟悉如何在伺服器上裝以上的套件，或者是上線網站伺服器不支援 (例：共享主機)。
 
-靈感來自 [Inertia.js 官網 - Root template data](https://inertiajs.com/responses#root-template-data)。
+如果你需要完整的 SSR 解決方案，可以使用 [Inertia.js 官方 Server-side Rendering](https://inertiajs.com/server-side-rendering) 功能。
 
 ## 安裝套件
 
@@ -307,10 +309,6 @@ return Inertia::render('Home')
 ```bash
 composer test
 ```
-
-## 其他選擇
-
-如果你需要完整的 SSR 解決方案，可以使用 [Inertia.js 官方 Server-side Rendering](https://inertiajs.com/server-side-rendering) 功能。
 
 ## 參考資料
 
