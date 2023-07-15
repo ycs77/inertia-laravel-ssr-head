@@ -64,9 +64,9 @@ yarn add inertia-title
 
 ```diff
 ...
-+import inertiaTitle from 'inertia-title/vue2'
++import InertiaTitle from 'inertia-title/vue2'
 
-+Vue.use(inertiaTitle)
++Vue.use(InertiaTitle)
 
 createInertiaApp({
   ...
@@ -77,14 +77,14 @@ createInertiaApp({
 
 ```diff
 ...
-+import inertiaTitle from 'inertia-title/vue3'
++import InertiaTitle from 'inertia-title/vue3'
 
 createInertiaApp({
   ...
   setup({ el, App, props, plugin }) {
     createApp({ render: () => h(App, props) })
       .use(plugin)
-+     .use(inertiaTitle)
++     .use(InertiaTitle)
       .mount(el)
   },
 })
