@@ -6,7 +6,7 @@
 [![Style CI Build Status][ico-style-ci]][link-style-ci]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-[繁體中文](README-zh-TW.md)
+English | [繁體中文](README-zh-TW.md)
 
 Simple SSR Head for Inertia Laravel
 
@@ -293,13 +293,13 @@ return Inertia::render('Home')
 
 ## Custom head tag
 
-Use `head()` method will add the custom HTML tag in `<head>`:
+Use `tag()` method will add the custom HTML tag in `<head>`:
 
 ```php
 return Inertia::render('Home')
     ->title('My homepage')
-    ->head('<meta name="my-meta" content="some data...">')
-    ->head('<meta name="my-meta" content="%s">', e('some data...')) // escape data
+    ->tag('<meta name="my-meta" content="some data...">')
+    ->tag('<meta name="my-meta" content="%s">', e('some data...')) // escape data
 ```
 
 ## Testing

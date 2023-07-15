@@ -6,6 +6,8 @@
 [![Style CI Build Status][ico-style-ci]][link-style-ci]
 [![Total Downloads][ico-downloads]][link-downloads]
 
+[English](README.md) | 繁體中文
+
 一個簡易的 Inertia Laravel SSR Head 套件
 
 - 😎 解決了 Inertia.js x Laravel 網站中，無法被爬取社群媒體資訊 (Open Graph Meta) 的問題
@@ -291,13 +293,13 @@ return Inertia::render('Home')
 
 ## 自訂 head 標籤
 
-使用 `head()` 方法可以注入自訂的 HTML 標籤到 `<head>` 裡面：
+使用 `tag()` 方法可以注入自訂的 HTML 標籤到 `<head>` 裡面：
 
 ```php
 return Inertia::render('Home')
     ->title('首頁')
-    ->head('<meta name="my-meta" content="some data...">')
-    ->head('<meta name="my-meta" content="%s">', e('some data...')) // escape 傳入資料
+    ->tag('<meta name="my-meta" content="some data...">')
+    ->tag('<meta name="my-meta" content="%s">', e('some data...')) // escape 傳入資料
 ```
 
 ## 測試
@@ -336,11 +338,11 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/ycs77/inertia-laravel-ssr-head?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square
-[ico-github-action]: https://img.shields.io/github/workflow/status/ycs77/inertia-laravel-ssr-head/run-tests?label=tests&style=flat-square
+[ico-github-action]: https://img.shields.io/github/actions/workflow/status/ycs77/inertia-laravel-ssr-head/run-tests.yml?branch=main&label=tests&style=flat-square
 [ico-style-ci]: https://github.styleci.io/repos/417571519/shield?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/ycs77/inertia-laravel-ssr-head?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/ycs77/inertia-laravel-ssr-head
-[link-github-action]: https://github.com/ycs77/inertia-laravel-ssr-head/actions?query=workflow%3Arun-tests+branch%3Amain
+[link-github-action]: https://github.com/ycs77/inertia-laravel-ssr-head/actions/workflows/run-tests.yml?query=branch%3Amain
 [link-style-ci]: https://github.styleci.io/repos/417571519
 [link-downloads]: https://packagist.org/packages/ycs77/inertia-laravel-ssr-head
