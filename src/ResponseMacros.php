@@ -19,13 +19,18 @@ class ResponseMacros
         };
     }
 
-    public function head()
+    public function tag()
     {
         return function ($html, ...$vars) {
             $this->headManager()->tag($html, ...$vars);
 
             return $this;
         };
+    }
+
+    public function head()
+    {
+        return $this->tag();
     }
 
     public function title()
