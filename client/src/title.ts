@@ -1,7 +1,7 @@
 import { router } from '@inertiajs/core'
 
 export function useInertiaTitle(): void {
-  if (typeof window === 'undefined') return
+  if (typeof document === 'undefined') return
 
   function setTitle(value: string) {
     setTimeout(() => document.title = value, 1)
