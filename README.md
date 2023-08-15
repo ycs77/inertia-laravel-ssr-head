@@ -94,9 +94,9 @@ Use in React or other client-side frameworks:
 
 ```diff
 ...
-+import { useInertiaTitle } from 'inertia-title'
++import { inertiaTitle } from 'inertia-title'
 
-+useInertiaTitle()
++inertiaTitle()
 ```
 
 ## Config

@@ -94,9 +94,9 @@ createInertiaApp({
 
 ```diff
 ...
-+import { useInertiaTitle } from 'inertia-title'
++import { inertiaTitle } from 'inertia-title'
 
-+useInertiaTitle()
++inertiaTitle()
 ```
 
 ## Config 設定
