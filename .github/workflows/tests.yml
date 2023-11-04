@@ -1,4 +1,4 @@
-name: run-tests
+name: tests
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  tests:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
