@@ -344,8 +344,7 @@ Please review [our security policy](.github/SECURITY.md) on how to report securi
 ## Credits
 
 - [Lucas Yang](https://github.com/ycs77)
-- [Jonathan Reinink](https://github.com/reinink), creator for [Inertia.js](https://inertiajs.com/)
-- [All Contributors](https://github.com/ycs77/graphs/contributors)
+- [All Contributors](https://github.com/ycs77/inertia-laravel-ssr-head/graphs/contributors)
 
 ## License
 
