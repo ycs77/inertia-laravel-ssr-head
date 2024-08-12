@@ -42,15 +42,15 @@
   "scripts": {
     "build": "npm run clean && npm run build:ts && npm run copy-dts-files",
     "build:ts": "tsup",
-    "clean": "rm -rf dist vue2.d.ts vue3.d.ts",
+    "clean": "rm -rf dist vue2.d.ts vue2.d.mts vue3.d.ts vue3.d.mts",
     "copy-dts-files": "tsx scripts/copy-dts-files.ts"
   },
   "devDependencies": {
     "@inertiajs/core": "^1.0.0",
-    "@types/node": "^18.11.18",
-    "tsup": "^6.5.0",
-    "tsx": "^3.0.0",
-    "typescript": "^4.9.0",
-    "vue": "^3.2.47"
+    "@types/node": "^20.0.0",
+    "tsup": "^8.2.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.4.0",
+    "vue": "^3.4.0"
   }
 }

@@ -1,6 +1,6 @@
-import type { Options } from 'tsup'
+import { Options, defineConfig } from 'tsup'
 
-export default <Options>{
+export default defineConfig({
   entry: ['src/index.ts', 'src/vue2.ts', 'src/vue3.ts'],
   format: ['cjs', 'esm'],
   outExtension: ({ format }) => ({
@@ -8,4 +8,4 @@ export default <Options>{
   }),
   external: ['@inertiajs/core', 'vue'],
   dts: true,
-}
+})
