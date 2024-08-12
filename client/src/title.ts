@@ -1,11 +1,13 @@
 import { router } from '@inertiajs/core'
 
-export function inertiaTitle(): void {
+export function setTitle(value: string) {
   if (typeof document === 'undefined') return
 
-  function setTitle(value: string) {
-    setTimeout(() => document.title = value, 1)
-  }
+  setTimeout(() => document.title = value, 1)
+}
+
+export function inertiaTitle(): void {
+  if (typeof document === 'undefined') return
 
   router.on('navigate', event => {
     const title = event.detail.page.props.title as string

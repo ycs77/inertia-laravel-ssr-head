@@ -1,1 +1,1 @@
-export { inertiaTitle, useInertiaTitle } from './title'
+export * from './title'
