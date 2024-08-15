@@ -22,6 +22,12 @@ Because I made this package to make it easier for the bot to crawl Open Graph Me
 
 If you need a full SSR solution, please use [Inertia.js Official Server-side Rendering](https://inertiajs.com/server-side-rendering).
 
+## Supported Versions
+
+| Version | Laravel Version | PHP Version |
+| ------- | --------------- | ----------- |
+| 1.x     | >=7.0           | >=7.3       |
+
 ## Installation
 
 Install the package via composer:

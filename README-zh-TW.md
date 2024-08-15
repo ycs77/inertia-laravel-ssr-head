@@ -22,6 +22,12 @@
 
 如果你需要完整的 SSR 解決方案，可以使用 [Inertia.js 官方 Server-side Rendering](https://inertiajs.com/server-side-rendering) 功能。
 
+## 支援版本
+
+| 版本 | Laravel 版本 | PHP 版本 |
+| ---- | ------------ | -------- |
+| 1.x  | >=7.0        | >=7.3    |
+
 ## 安裝套件
 
 使用 Composer 安裝套件：
