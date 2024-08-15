@@ -8,7 +8,6 @@ namespace Inertia {
 
     /**
      * @method self tag(string $html, ...$vars)
-     * @method self head(string $html, ...$vars)
      * @method self title(string $title, string|false|\Closure $template)
      * @method self titleTemplate(string|\Closure $template)
      * @method self description(string $description)

@@ -28,11 +28,6 @@ class ResponseMacros
         };
     }
 
-    public function head()
-    {
-        return $this->tag();
-    }
-
     public function title()
     {
         return function ($title, $template = null) {
