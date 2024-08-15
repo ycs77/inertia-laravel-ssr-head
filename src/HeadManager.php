@@ -20,23 +20,11 @@ class HeadManager
     /** @var string */
     protected $image;
 
-    /** @deprecated */
-    protected $showInertiaAttribute = false;
-
     protected $space = 0;
 
     public function tag(string $element, ...$vars)
     {
         $element = sprintf($element, ...$vars);
-
-        // inject "inertia" attribute
-        if ($this->showInertiaAttribute) {
-            $element = preg_replace(
-                '/^(\<([A-Za-z]+)(?: [A-Za-z]+(?:\=(\'|\")[^\'\"]*\3)?)*)( ?\/?\>(?:[^<>]*\<\/\2\>)?)$/',
-                '$1 inertia$4',
-                $element
-            );
-        }
 
         // check element is exists
         if (preg_match('/^(\<meta (name|property)\="([\w\-:]+)"|\<title)/', $element, $elementMatches)) {
@@ -404,14 +392,6 @@ class HeadManager
     public function setElements(array $elements)
     {
         $this->elements = $elements;
-
-        return $this;
-    }
-
-    /** @deprecated */
-    public function showInertiaAttribute(bool $show = true)
-    {
-        $this->showInertiaAttribute = $show;
 
         return $this;
     }
