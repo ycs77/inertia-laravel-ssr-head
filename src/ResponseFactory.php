@@ -7,7 +7,7 @@ use Inertia\ResponseFactory as BaseResponseFactory;
 
 class ResponseFactory extends BaseResponseFactory
 {
-    protected $usingTitleTemplate = false;
+    protected bool $usingTitleTemplate = false;
 
     public function titleTemplate($template)
     {

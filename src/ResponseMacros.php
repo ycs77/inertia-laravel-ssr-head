@@ -4,6 +4,8 @@ namespace Inertia\SSRHead;
 
 /**
  * @mixin \Inertia\Response
+ *
+ * @property array $viewData
  */
 class ResponseMacros
 {
@@ -21,7 +23,7 @@ class ResponseMacros
 
     public function tag()
     {
-        return function ($html, ...$vars) {
+        return function (string $html, ...$vars) {
             $this->headManager()->tag($html, ...$vars);
 
             return $this;
@@ -30,7 +32,7 @@ class ResponseMacros
 
     public function title()
     {
-        return function ($title, $template = null) {
+        return function (?string $title, $template = null) {
             $this->headManager()->title($title, $template);
             $this->with('title', $this->headManager()->getFullTitle());
 
@@ -50,7 +52,7 @@ class ResponseMacros
 
     public function description()
     {
-        return function ($description) {
+        return function (string $description) {
             $this->headManager()->description($description);
 
             return $this;
@@ -59,7 +61,7 @@ class ResponseMacros
 
     public function image()
     {
-        return function ($image) {
+        return function (string $image) {
             $this->headManager()->image($image);
 
             return $this;
@@ -68,7 +70,7 @@ class ResponseMacros
 
     public function ogMeta()
     {
-        return function ($meta = []) {
+        return function (array $meta = []) {
             $this->headManager()->ogMeta($meta);
 
             return $this;
@@ -77,7 +79,7 @@ class ResponseMacros
 
     public function ogUrl()
     {
-        return function ($url = null) {
+        return function (string $url = null) {
             $this->headManager()->ogUrl($url);
 
             return $this;
@@ -86,7 +88,7 @@ class ResponseMacros
 
     public function ogTitle()
     {
-        return function ($title = null) {
+        return function (string $title = null) {
             $this->headManager()->ogTitle($title);
 
             return $this;
@@ -95,7 +97,7 @@ class ResponseMacros
 
     public function ogDescription()
     {
-        return function ($description = null) {
+        return function (string $description = null) {
             $this->headManager()->ogDescription($description);
 
             return $this;
@@ -113,7 +115,7 @@ class ResponseMacros
 
     public function ogVideo()
     {
-        return function ($video) {
+        return function (array $video) {
             $this->headManager()->ogVideo($video);
 
             return $this;
@@ -122,7 +124,7 @@ class ResponseMacros
 
     public function ogType()
     {
-        return function ($type = 'website') {
+        return function (string $type = 'website') {
             $this->headManager()->ogType($type);
 
             return $this;
@@ -131,7 +133,7 @@ class ResponseMacros
 
     public function ogLocale()
     {
-        return function ($locale) {
+        return function (string $locale) {
             $this->headManager()->ogLocale($locale);
 
             return $this;
@@ -140,35 +142,8 @@ class ResponseMacros
 
     public function fbAppID()
     {
-        return function ($id = null) {
+        return function (string $id = null) {
             $this->headManager()->fbAppID($id);
-
-            return $this;
-        };
-    }
-
-    public function twitterTitle()
-    {
-        return function ($title = null) {
-            $this->headManager()->twitterTitle($title);
-
-            return $this;
-        };
-    }
-
-    public function twitterDescription()
-    {
-        return function ($description = null) {
-            $this->headManager()->twitterDescription($description);
-
-            return $this;
-        };
-    }
-
-    public function twitterImage()
-    {
-        return function ($image = null, string $alt = null) {
-            $this->headManager()->twitterImage($image, $alt);
 
             return $this;
         };
@@ -176,7 +151,7 @@ class ResponseMacros
 
     public function twitterCard()
     {
-        return function ($type = 'summary') {
+        return function (string $type = 'summary') {
             $this->headManager()->twitterCard($type);
 
             return $this;
@@ -185,7 +160,7 @@ class ResponseMacros
 
     public function twitterSummaryCard()
     {
-        return function ($meta = []) {
+        return function (array $meta = []) {
             $this->headManager()->twitterSummaryCard($meta);
 
             return $this;
@@ -194,7 +169,7 @@ class ResponseMacros
 
     public function twitterLargeCard()
     {
-        return function ($meta = []) {
+        return function (array $meta = []) {
             $this->headManager()->twitterLargeCard($meta);
 
             return $this;
@@ -203,7 +178,7 @@ class ResponseMacros
 
     public function twitterAppCard()
     {
-        return function ($meta = []) {
+        return function (array $meta = []) {
             $this->headManager()->twitterAppCard($meta);
 
             return $this;
@@ -212,8 +187,35 @@ class ResponseMacros
 
     public function twitterPlayerCard()
     {
-        return function ($meta = []) {
+        return function (array $meta = []) {
             $this->headManager()->twitterPlayerCard($meta);
+
+            return $this;
+        };
+    }
+
+    public function twitterTitle()
+    {
+        return function (string $title = null) {
+            $this->headManager()->twitterTitle($title);
+
+            return $this;
+        };
+    }
+
+    public function twitterDescription()
+    {
+        return function (string $description = null) {
+            $this->headManager()->twitterDescription($description);
+
+            return $this;
+        };
+    }
+
+    public function twitterImage()
+    {
+        return function (string $image = null, string $alt = null) {
+            $this->headManager()->twitterImage($image, $alt);
 
             return $this;
         };
@@ -221,7 +223,7 @@ class ResponseMacros
 
     public function twitterSite()
     {
-        return function ($username = null, $id = null) {
+        return function (string $username = null, string $id = null) {
             $this->headManager()->twitterSite($username, $id);
 
             return $this;
@@ -230,7 +232,7 @@ class ResponseMacros
 
     public function twitterCreator()
     {
-        return function ($username = null, $id = null) {
+        return function (string $username = null, string $id = null) {
             $this->headManager()->twitterCreator($username, $id);
 
             return $this;
@@ -239,7 +241,7 @@ class ResponseMacros
 
     public function twitterAppForIphone()
     {
-        return function ($app = []) {
+        return function (array $app = []) {
             $this->headManager()->twitterAppForIphone($app);
 
             return $this;
@@ -248,7 +250,7 @@ class ResponseMacros
 
     public function twitterAppForIpad()
     {
-        return function ($app = []) {
+        return function (array $app = []) {
             $this->headManager()->twitterAppForIpad($app);
 
             return $this;
@@ -257,7 +259,7 @@ class ResponseMacros
 
     public function twitterAppForGoogleplay()
     {
-        return function ($app = []) {
+        return function (array $app = []) {
             $this->headManager()->twitterAppForGoogleplay($app);
 
             return $this;
@@ -266,7 +268,7 @@ class ResponseMacros
 
     public function twitterAppCountry()
     {
-        return function ($country) {
+        return function (string $country) {
             $this->headManager()->twitterAppCountry($country);
 
             return $this;
@@ -275,7 +277,7 @@ class ResponseMacros
 
     public function twitterPlayer()
     {
-        return function ($player) {
+        return function (array $player) {
             $this->headManager()->twitterPlayer($player);
 
             return $this;

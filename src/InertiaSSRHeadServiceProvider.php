@@ -9,37 +9,33 @@ use Inertia\ResponseFactory as InertiaResponseFactory;
 
 class InertiaSSRHeadServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/inertia-ssr-head.php', 'inertia-ssr-head');
 
-        $this->app->singleton(HeadManager::class, function () {
-            return new HeadManager();
-        });
+        $this->app->singleton(HeadManager::class, fn () => new HeadManager());
 
         $this->app->bind(InertiaResponseFactory::class, ResponseFactory::class);
     }
 
-    public function boot()
+    public function boot(): void
     {
         $this->registerMacros();
         $this->registerBladeDirectives();
         $this->publishingFiles();
     }
 
-    protected function registerMacros()
+    protected function registerMacros(): void
     {
         Response::mixin(new ResponseMacros);
     }
 
-    protected function registerBladeDirectives()
+    protected function registerBladeDirectives(): void
     {
-        Blade::directive('inertiaHead', function () {
-            return "<?php echo app(\Inertia\SSRHead\HeadManager::class)->format(4)->render().\"\\n\"; ?>";
-        });
+        Blade::directive('inertiaHead', fn () => "<?php echo app(\Inertia\SSRHead\HeadManager::class)->format(4)->render().\"\\n\"; ?>");
     }
 
-    protected function publishingFiles()
+    protected function publishingFiles(): void
     {
         $this->publishes([
             __DIR__.'/../config/inertia-ssr-head.php' => config_path('inertia-ssr-head.php'),

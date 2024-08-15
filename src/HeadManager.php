@@ -6,21 +6,21 @@ use Closure;
 
 class HeadManager
 {
-    /** @var string[] */
-    protected $elements = [];
+    /** @var array<int|string, string> */
+    protected array $elements = [];
 
-    /** @var string */
-    protected $title;
-    /** @var string */
-    protected $fullTitle;
-    /** @var string|\Closure */
+    protected ?string $title = null;
+
+    protected ?string $fullTitle = null;
+
+    /** @var string|\Closure|null */
     protected $titleTemplate = null;
-    /** @var string */
-    protected $description;
-    /** @var string */
-    protected $image;
 
-    protected $space = 0;
+    protected ?string $description = null;
+
+    protected ?string $image = null;
+
+    protected int $space = 0;
 
     public function tag(string $element, ...$vars)
     {
@@ -47,15 +47,13 @@ class HeadManager
     }
 
     /**
-     * @param  string|null  $name
-     * @param  string|false|\Closure  $template
-     * @return $this
+     * @param  string|false|\Closure|null  $template
      */
-    public function title($title, $template = null)
+    public function title(?string $title, $template = null)
     {
         $this->title = $title;
 
-        if ($template !== false && $template = ($template ?? $this->titleTemplate)) {
+        if ($template !== false && ($template ??= $this->titleTemplate)) {
             if (is_string($template)) {
                 $title = sprintf($template, $title);
             } elseif ($template instanceof Closure) {
@@ -71,7 +69,6 @@ class HeadManager
 
     /**
      * @param  string|\Closure  $template
-     * @return $this
      */
     public function titleTemplate($template)
     {
@@ -110,7 +107,7 @@ class HeadManager
 
     public function ogUrl(string $url = null)
     {
-        $url = $url ?? url()->current();
+        $url ??= url()->current();
 
         $this->tag('<meta property="og:url" content="%s">', e($url));
 
@@ -119,7 +116,7 @@ class HeadManager
 
     public function ogTitle(string $title = null)
     {
-        if ($title = $title ?? $this->fullTitle) {
+        if ($title ??= $this->fullTitle) {
             $this->tag('<meta property="og:title" content="%s">', e($title));
         }
 
@@ -128,17 +125,20 @@ class HeadManager
 
     public function ogDescription(string $description = null)
     {
-        if ($description = $description ?? $this->description) {
+        if ($description ??= $this->description) {
             $this->tag('<meta property="og:description" content="%s">', e($description));
         }
 
         return $this;
     }
 
+    /**
+     * @param  string|array<string, string>|null  $image
+     */
     public function ogImage($image = null)
     {
         if (is_string($image) || (is_null($image) && $this->image)) {
-            $image = $image ?? $this->image;
+            $image ??= $this->image;
             $this->tag('<meta property="og:image" content="%s">', e($image));
         } elseif (is_array($image)) {
             foreach (['url', 'secure_url', 'type', 'width', 'height'] as $attr) {
@@ -151,7 +151,10 @@ class HeadManager
         return $this;
     }
 
-    public function ogVideo($video)
+    /**
+     * @param  array<string, string>  $video
+     */
+    public function ogVideo(array $video)
     {
         foreach (['url', 'secure_url', 'type', 'width', 'height'] as $attr) {
             if (isset($video[$attr])) {
@@ -182,7 +185,7 @@ class HeadManager
 
     public function fbAppID(string $id = null)
     {
-        if ($id = $id ?? config('inertia-ssr-head.fb_app_id')) {
+        if ($id ??= config('inertia-ssr-head.fb_app_id')) {
             $this->tag('<meta property="fb:app_id" content="%s">', e($id));
         }
 
@@ -196,6 +199,9 @@ class HeadManager
         return $this;
     }
 
+    /**
+     * @param  array<string, string>  $meta
+     */
     public function twitterSummaryCard(array $meta = [])
     {
         $this->twitterCard('summary');
@@ -207,6 +213,9 @@ class HeadManager
         return $this;
     }
 
+    /**
+     * @param  array<string, string>  $meta
+     */
     public function twitterLargeCard(array $meta = [])
     {
         $this->twitterCard('summary_large_image');
@@ -219,6 +228,9 @@ class HeadManager
         return $this;
     }
 
+    /**
+     * @param  array<string, string>  $meta
+     */
     public function twitterAppCard(array $meta = [])
     {
         $this->twitterCard('app');
@@ -232,6 +244,9 @@ class HeadManager
         return $this;
     }
 
+    /**
+     * @param  array<string, string>  $meta
+     */
     public function twitterPlayerCard(array $meta = [])
     {
         $this->twitterCard('player');
@@ -250,7 +265,7 @@ class HeadManager
 
     public function twitterTitle(string $title = null)
     {
-        if ($title = $title ?? $this->title) {
+        if ($title ??= $this->title) {
             $this->tag('<meta name="twitter:title" content="%s">', e($title));
         }
 
@@ -259,7 +274,7 @@ class HeadManager
 
     public function twitterDescription(string $description = null)
     {
-        if ($description = $description ?? $this->description) {
+        if ($description ??= $this->description) {
             $this->tag('<meta name="twitter:description" content="%s">', e($description));
         }
 
@@ -268,7 +283,7 @@ class HeadManager
 
     public function twitterImage(string $image = null, string $alt = null)
     {
-        if ($image = $image ?? $this->image) {
+        if ($image ??= $this->image) {
             $this->tag('<meta name="twitter:image" content="%s">', e($image));
         }
 
@@ -281,11 +296,11 @@ class HeadManager
 
     public function twitterSite(string $username = null, string $id = null)
     {
-        if ($username = $username ?? config('inertia-ssr-head.twitter_site')) {
+        if ($username ??= config('inertia-ssr-head.twitter_site')) {
             $this->tag('<meta name="twitter:site" content="%s">', e($username));
         }
 
-        if ($id = $id ?? config('inertia-ssr-head.twitter_site_id')) {
+        if ($id ??= config('inertia-ssr-head.twitter_site_id')) {
             $this->tag('<meta name="twitter:site:id" content="%s">', e($id));
         }
 
@@ -294,17 +309,20 @@ class HeadManager
 
     public function twitterCreator(string $username = null, string $id = null)
     {
-        if ($username = $username ?? config('inertia-ssr-head.twitter_creator')) {
+        if ($username ??= config('inertia-ssr-head.twitter_creator')) {
             $this->tag('<meta name="twitter:creator" content="%s">', e($username));
         }
 
-        if ($id = $id ?? config('inertia-ssr-head.twitter_creator_id')) {
+        if ($id ??= config('inertia-ssr-head.twitter_creator_id')) {
             $this->tag('<meta name="twitter:creator:id" content="%s">', e($id));
         }
 
         return $this;
     }
 
+    /**
+     * @param  array<string, string>  $app
+     */
     public function twitterAppForIphone(array $app = [])
     {
         $appName = $app['name'] ?? config('inertia-ssr-head.twitter_app_name');
@@ -318,6 +336,9 @@ class HeadManager
         return $this;
     }
 
+    /**
+     * @param  array<string, string>  $app
+     */
     public function twitterAppForIpad(array $app = [])
     {
         $appName = $app['name'] ?? config('inertia-ssr-head.twitter_app_name');
@@ -331,6 +352,9 @@ class HeadManager
         return $this;
     }
 
+    /**
+     * @param  array<string, string>  $app
+     */
     public function twitterAppForGoogleplay(array $app = [])
     {
         $appName = $app['name'] ?? config('inertia-ssr-head.twitter_app_name');
@@ -351,6 +375,9 @@ class HeadManager
         return $this;
     }
 
+    /**
+     * @param  array<string, string>  $player
+     */
     public function twitterPlayer(array $player)
     {
         $this->tag('<meta name="twitter:player" content="%s">', e($player['url']));
@@ -364,22 +391,22 @@ class HeadManager
         return $this;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function getFullTitle(): string
+    public function getFullTitle(): ?string
     {
         return $this->fullTitle;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function getImage(): string
+    public function getImage(): ?string
     {
         return $this->image;
     }

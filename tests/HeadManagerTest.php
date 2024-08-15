@@ -57,9 +57,7 @@ test('can use title template with attribute', function () {
 test('can use title template with closure', function () {
     $head = new HeadManager();
 
-    $head->titleTemplate(function ($title) {
-        return $title ? "$title - My website" : 'My website';
-    });
+    $head->titleTemplate(fn (?string $title) => $title ? "$title - My website" : 'My website');
 
     $elements = $head->getElements();
 
