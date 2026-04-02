@@ -21,6 +21,7 @@ class InertiaSSRHeadServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerMacros();
+        $this->registerComponents();
         $this->registerBladeDirectives();
         $this->publishingFiles();
     }
@@ -28,6 +29,11 @@ class InertiaSSRHeadServiceProvider extends ServiceProvider
     protected function registerMacros(): void
     {
         Response::mixin(new ResponseMacros);
+    }
+
+    protected function registerComponents(): void
+    {
+        Blade::componentNamespace('Inertia\\SSRHead\\View\\Components', 'inertia-ssr');
     }
 
     protected function registerBladeDirectives(): void

@@ -38,7 +38,7 @@ Install the package via composer:
 composer require ycs77/inertia-laravel-ssr-head
 ```
 
-Replace `<title>` to `@inertiaHead` directive:
+Replace `<title>` to `<x-inertia-ssr::head />` component:
 
 ```diff
 <!DOCTYPE html>
@@ -47,11 +47,11 @@ Replace `<title>` to `@inertiaHead` directive:
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 -   <title>{{ config('app.name') }}</title>
-+   @inertiaHead
++   <x-inertia-ssr::head />
 </head>
 
 <body>
-    @inertia
+    <x-inertia::app />
 </body>
 </html>
 ```

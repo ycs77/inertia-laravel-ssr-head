@@ -37,7 +37,7 @@
 composer require ycs77/inertia-laravel-ssr-head
 ```
 
-替換 `<title>` 成 `@inertiaHead`：
+替換 `<title>` 成 `<x-inertia-ssr::head />` 元件：
 
 ```diff
 <!DOCTYPE html>
@@ -46,11 +46,11 @@ composer require ycs77/inertia-laravel-ssr-head
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 -   <title>{{ config('app.name') }}</title>
-+   @inertiaHead
++   <x-inertia-ssr::head />
 </head>
 
 <body>
-    @inertia
+    <x-inertia::app />
 </body>
 </html>
 ```
