@@ -79,7 +79,7 @@ class ResponseMacros
 
     public function ogUrl()
     {
-        return function (string $url = null) {
+        return function (?string $url = null) {
             $this->headManager()->ogUrl($url);
 
             return $this;
@@ -88,7 +88,7 @@ class ResponseMacros
 
     public function ogTitle()
     {
-        return function (string $title = null) {
+        return function (?string $title = null) {
             $this->headManager()->ogTitle($title);
 
             return $this;
@@ -97,7 +97,7 @@ class ResponseMacros
 
     public function ogDescription()
     {
-        return function (string $description = null) {
+        return function (?string $description = null) {
             $this->headManager()->ogDescription($description);
 
             return $this;
@@ -142,7 +142,7 @@ class ResponseMacros
 
     public function fbAppID()
     {
-        return function (string $id = null) {
+        return function (?string $id = null) {
             $this->headManager()->fbAppID($id);
 
             return $this;
@@ -196,7 +196,7 @@ class ResponseMacros
 
     public function twitterTitle()
     {
-        return function (string $title = null) {
+        return function (?string $title = null) {
             $this->headManager()->twitterTitle($title);
 
             return $this;
@@ -205,7 +205,7 @@ class ResponseMacros
 
     public function twitterDescription()
     {
-        return function (string $description = null) {
+        return function (?string $description = null) {
             $this->headManager()->twitterDescription($description);
 
             return $this;
@@ -214,7 +214,7 @@ class ResponseMacros
 
     public function twitterImage()
     {
-        return function (string $image = null, string $alt = null) {
+        return function (?string $image = null, ?string $alt = null) {
             $this->headManager()->twitterImage($image, $alt);
 
             return $this;
@@ -223,7 +223,7 @@ class ResponseMacros
 
     public function twitterSite()
     {
-        return function (string $username = null, string $id = null) {
+        return function (?string $username = null, ?string $id = null) {
             $this->headManager()->twitterSite($username, $id);
 
             return $this;
@@ -232,7 +232,7 @@ class ResponseMacros
 
     public function twitterCreator()
     {
-        return function (string $username = null, string $id = null) {
+        return function (?string $username = null, ?string $id = null) {
             $this->headManager()->twitterCreator($username, $id);
 
             return $this;

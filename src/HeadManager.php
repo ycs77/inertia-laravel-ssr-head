@@ -105,7 +105,7 @@ class HeadManager
         return $this;
     }
 
-    public function ogUrl(string $url = null)
+    public function ogUrl(?string $url = null)
     {
         $url ??= url()->current();
 
@@ -114,7 +114,7 @@ class HeadManager
         return $this;
     }
 
-    public function ogTitle(string $title = null)
+    public function ogTitle(?string $title = null)
     {
         if ($title ??= $this->fullTitle) {
             $this->tag('<meta property="og:title" content="%s">', e($title));
@@ -123,7 +123,7 @@ class HeadManager
         return $this;
     }
 
-    public function ogDescription(string $description = null)
+    public function ogDescription(?string $description = null)
     {
         if ($description ??= $this->description) {
             $this->tag('<meta property="og:description" content="%s">', e($description));
@@ -183,7 +183,7 @@ class HeadManager
         return $this;
     }
 
-    public function fbAppID(string $id = null)
+    public function fbAppID(?string $id = null)
     {
         if ($id ??= config('inertia-ssr-head.fb_app_id')) {
             $this->tag('<meta property="fb:app_id" content="%s">', e($id));
@@ -263,7 +263,7 @@ class HeadManager
         return $this;
     }
 
-    public function twitterTitle(string $title = null)
+    public function twitterTitle(?string $title = null)
     {
         if ($title ??= $this->title) {
             $this->tag('<meta name="twitter:title" content="%s">', e($title));
@@ -272,7 +272,7 @@ class HeadManager
         return $this;
     }
 
-    public function twitterDescription(string $description = null)
+    public function twitterDescription(?string $description = null)
     {
         if ($description ??= $this->description) {
             $this->tag('<meta name="twitter:description" content="%s">', e($description));
@@ -281,7 +281,7 @@ class HeadManager
         return $this;
     }
 
-    public function twitterImage(string $image = null, string $alt = null)
+    public function twitterImage(?string $image = null, ?string $alt = null)
     {
         if ($image ??= $this->image) {
             $this->tag('<meta name="twitter:image" content="%s">', e($image));
@@ -294,7 +294,7 @@ class HeadManager
         return $this;
     }
 
-    public function twitterSite(string $username = null, string $id = null)
+    public function twitterSite(?string $username = null, ?string $id = null)
     {
         if ($username ??= config('inertia-ssr-head.twitter_site')) {
             $this->tag('<meta name="twitter:site" content="%s">', e($username));
@@ -307,7 +307,7 @@ class HeadManager
         return $this;
     }
 
-    public function twitterCreator(string $username = null, string $id = null)
+    public function twitterCreator(?string $username = null, ?string $id = null)
     {
         if ($username ??= config('inertia-ssr-head.twitter_creator')) {
             $this->tag('<meta name="twitter:creator" content="%s">', e($username));
