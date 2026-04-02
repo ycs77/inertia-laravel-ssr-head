@@ -40,7 +40,11 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "vue2.d.ts",
+    "vue2.d.mts",
+    "vue3.d.ts",
+    "vue3.d.mts"
   ],
   "scripts": {
     "build": "npm run clean && npm run build:ts && npm run copy-dts-files",
@@ -49,7 +53,7 @@
     "copy-dts-files": "tsx scripts/copy-dts-files.ts"
   },
   "devDependencies": {
-    "@inertiajs/core": "^1.0.0",
+    "@inertiajs/core": "^3.0.0",
     "@types/node": "^24.0.0",
     "tsup": "^8.2.0",
     "tsx": "^4.0.0",
