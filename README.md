@@ -28,6 +28,7 @@ If you need a full SSR solution, please use [Inertia.js Official Server-side Ren
 | ------- | --------------- | ----------- |
 | 1.x     | >=7.0           | >=7.3       |
 | 2.x     | >=11.0          | >=8.2       |
+| 3.x     | >=13.0          | >=8.3       |
 
 ## Installation
 
@@ -359,11 +360,11 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/ycs77/inertia-laravel-ssr-head?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square
-[ico-github-action]: https://img.shields.io/github/actions/workflow/status/ycs77/inertia-laravel-ssr-head/tests.yml?branch=2.x&label=tests&style=flat-square
+[ico-github-action]: https://img.shields.io/github/actions/workflow/status/ycs77/inertia-laravel-ssr-head/tests.yml?branch=3.x&label=tests&style=flat-square
 [ico-style-ci]: https://github.styleci.io/repos/417571519/shield?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/ycs77/inertia-laravel-ssr-head?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/ycs77/inertia-laravel-ssr-head
-[link-github-action]: https://github.com/ycs77/inertia-laravel-ssr-head/actions/workflows/tests.yml?query=branch%3A2.x
+[link-github-action]: https://github.com/ycs77/inertia-laravel-ssr-head/actions/workflows/tests.yml?query=branch%3A3.x
 [link-style-ci]: https://github.styleci.io/repos/417571519
 [link-downloads]: https://packagist.org/packages/ycs77/inertia-laravel-ssr-head
