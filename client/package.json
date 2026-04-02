@@ -1,6 +1,6 @@
 {
   "name": "inertia-title",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Simple auto update title plugin for Inertia.js client adapters",
   "author": "Lucas Yang",
   "license": "MIT",
